@@ -7,6 +7,6 @@ Plataforma de ticketing.
 ## Note
 <p align="center">
   <kbd>
-    <embed src="ticketing.pdf" type="application/pdf" width="100%" height="600px" />
+    <embed src="/Ticketing.pdf" type="application/pdf" width="100%" height="600px" />
   </kbd>
 </p>
