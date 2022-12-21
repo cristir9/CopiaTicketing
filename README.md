@@ -5,4 +5,8 @@ Plataforma de ticketing.
 - Login
 
 ## Note
-Aplicacion en desarollo.
+<p align="center">
+  <kbd>
+    <embed src="ticketing.pdf" type="application/pdf" width="100%" height="600px" />
+  </kbd>
+</p>
