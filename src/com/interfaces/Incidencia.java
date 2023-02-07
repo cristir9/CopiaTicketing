@@ -26,21 +26,164 @@ public class Incidencia extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDesktopPanel = new javax.swing.JDesktopPane();
+        jButtonAyuda = new javax.swing.JButton();
+        jLabelTitulo = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextAreaComentarios = new javax.swing.JTextArea();
+        jTextFieldTitulo = new javax.swing.JTextField();
+        jLabelFechaIncidencia = new javax.swing.JLabel();
+        jLabelNombre = new javax.swing.JLabel();
+        jDateChooser = new com.toedter.calendar.JDateChooser();
+        jTextFieldNombre = new javax.swing.JTextField();
+        jLabelComentarios = new javax.swing.JLabel();
+        jButtonEnviar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jButtonAyuda.setText("Ayuda");
+        jButtonAyuda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAyudaActionPerformed(evt);
+            }
+        });
+
+        jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabelTitulo.setText("Título:");
+
+        jTextAreaComentarios.setColumns(20);
+        jTextAreaComentarios.setRows(5);
+        jScrollPane1.setViewportView(jTextAreaComentarios);
+
+        jTextFieldTitulo.setToolTipText("Indique sus apellidos.");
+
+        jLabelFechaIncidencia.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabelFechaIncidencia.setText("Fecha incidencia:");
+
+        jLabelNombre.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabelNombre.setText("Nombre:");
+
+        jDateChooser.setToolTipText("Seleccione la fecha de la incidencia.");
+
+        jTextFieldNombre.setToolTipText("Indique su nombre");
+        jTextFieldNombre.setFocusable(false);
+
+        jLabelComentarios.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabelComentarios.setText("Comentarios:");
+
+        jButtonEnviar.setText("Enviar");
+        jButtonEnviar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEnviarActionPerformed(evt);
+            }
+        });
+
+        jDesktopPanel.setLayer(jButtonAyuda, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPanel.setLayer(jLabelTitulo, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPanel.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPanel.setLayer(jTextFieldTitulo, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPanel.setLayer(jLabelFechaIncidencia, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPanel.setLayer(jLabelNombre, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPanel.setLayer(jDateChooser, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPanel.setLayer(jTextFieldNombre, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPanel.setLayer(jLabelComentarios, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPanel.setLayer(jButtonEnviar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout jDesktopPanelLayout = new javax.swing.GroupLayout(jDesktopPanel);
+        jDesktopPanel.setLayout(jDesktopPanelLayout);
+        jDesktopPanelLayout.setHorizontalGroup(
+            jDesktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDesktopPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jDesktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jDesktopPanelLayout.createSequentialGroup()
+                        .addComponent(jLabelNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldNombre))
+                    .addGroup(jDesktopPanelLayout.createSequentialGroup()
+                        .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldTitulo))
+                    .addGroup(jDesktopPanelLayout.createSequentialGroup()
+                        .addGroup(jDesktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonAyuda, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelFechaIncidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelComentarios, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jDesktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButtonEnviar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE)
+                            .addComponent(jDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
+        );
+        jDesktopPanelLayout.setVerticalGroup(
+            jDesktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDesktopPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jDesktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextFieldNombre)
+                    .addComponent(jLabelNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jDesktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextFieldTitulo)
+                    .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jDesktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelFechaIncidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jDesktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelComentarios, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jDesktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonEnviar)
+                    .addComponent(jButtonAyuda))
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 791, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jDesktopPanel)
+                    .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 314, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jDesktopPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAyudaActionPerformed
+
+    }//GEN-LAST:event_jButtonAyudaActionPerformed
+
+    private void jButtonEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnviarActionPerformed
+        String[] info = new String[5];
+        info[0] = jTextFieldNombre.getText();
+        info[1] = jTextFieldTitulo.getText();
+        info[2] = jDateChooser.getDate().toString();
+        info[3] = jTextAreaComentarios.getText();
+        java.util.Date fecha = new Date();
+        info[4] = fecha.toString();
+        System.out.println("Nombre: " + info[0]);
+        System.out.println("Apellidos: " + info[1]);
+        System.out.println("Fecha incidencia: " + info[2]);
+        System.out.println("Fecha envío incidencia: " + info[4]);
+        System.out.println("Comentarios: \n" + info[3]);
+    }//GEN-LAST:event_jButtonEnviarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +221,17 @@ public class Incidencia extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonAyuda;
+    private javax.swing.JButton jButtonEnviar;
+    private com.toedter.calendar.JDateChooser jDateChooser;
+    private javax.swing.JDesktopPane jDesktopPanel;
+    private javax.swing.JLabel jLabelComentarios;
+    private javax.swing.JLabel jLabelFechaIncidencia;
+    private javax.swing.JLabel jLabelNombre;
+    private javax.swing.JLabel jLabelTitulo;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextAreaComentarios;
+    private javax.swing.JTextField jTextFieldNombre;
+    private javax.swing.JTextField jTextFieldTitulo;
     // End of variables declaration//GEN-END:variables
 }
