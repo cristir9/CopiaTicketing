@@ -53,6 +53,7 @@ public class Incidencia extends javax.swing.JFrame {
         jTextFieldDispositivo = new javax.swing.JTextField();
         DesplegableTipo = new javax.swing.JComboBox<>();
         DesplegablePrioridad = new javax.swing.JComboBox<>();
+        jDateChooser = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -121,6 +122,7 @@ public class Incidencia extends javax.swing.JFrame {
         jDesktopPanel.setLayer(jTextFieldDispositivo, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPanel.setLayer(DesplegableTipo, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPanel.setLayer(DesplegablePrioridad, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPanel.setLayer(jDateChooser, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPanelLayout = new javax.swing.GroupLayout(jDesktopPanel);
         jDesktopPanel.setLayout(jDesktopPanelLayout);
@@ -151,7 +153,8 @@ public class Incidencia extends javax.swing.JFrame {
                         .addComponent(jButtonEnviar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jDesktopPanelLayout.createSequentialGroup()
                         .addComponent(jLabelFechaIncidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jDesktopPanelLayout.createSequentialGroup()
                         .addComponent(jLabelTipoIncidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -174,7 +177,9 @@ public class Incidencia extends javax.swing.JFrame {
                     .addComponent(jTextFieldTitulo)
                     .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelFechaIncidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jDesktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelFechaIncidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jDesktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelTipoIncidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -277,6 +282,7 @@ public class Incidencia extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> DesplegableTipo;
     private javax.swing.JButton jButtonAyuda;
     private javax.swing.JButton jButtonEnviar;
+    private com.toedter.calendar.JDateChooser jDateChooser;
     private javax.swing.JDesktopPane jDesktopPanel;
     private javax.swing.JLabel jLabelComentarios;
     private javax.swing.JLabel jLabelDispositivo;
