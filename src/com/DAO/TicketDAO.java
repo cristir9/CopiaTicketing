@@ -10,4 +10,7 @@ package com.DAO;
  */
 public interface TicketDAO {
     
+    public void RegistrarIncidencia(Incidencia i);
+    public void ModificarIncidencia();
+    
 }
