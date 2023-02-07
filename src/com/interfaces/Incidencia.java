@@ -47,13 +47,12 @@ public class Incidencia extends javax.swing.JFrame {
         jTextFieldNombre = new javax.swing.JTextField();
         jLabelComentarios = new javax.swing.JLabel();
         jButtonEnviar = new javax.swing.JButton();
-        jDateChooser = new com.toedter.calendar.JDateChooser();
-        jTextFieldPrioridad = new javax.swing.JTextField();
         jLabelPrioridad = new javax.swing.JLabel();
         jLabelTipoIncidencia = new javax.swing.JLabel();
-        jTextFieldTipoIncidencia = new javax.swing.JTextField();
         jLabelDispositivo = new javax.swing.JLabel();
         jTextFieldDispositivo = new javax.swing.JTextField();
+        DesplegableTipo = new javax.swing.JComboBox<>();
+        DesplegablePrioridad = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -92,20 +91,20 @@ public class Incidencia extends javax.swing.JFrame {
             }
         });
 
-        jTextFieldPrioridad.setToolTipText("Indique sus apellidos.");
-
         jLabelPrioridad.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabelPrioridad.setText("Prioridad:");
 
         jLabelTipoIncidencia.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabelTipoIncidencia.setText("Tipo:");
 
-        jTextFieldTipoIncidencia.setToolTipText("Indique sus apellidos.");
-
         jLabelDispositivo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabelDispositivo.setText("Dispositivo:");
 
         jTextFieldDispositivo.setToolTipText("Indique sus apellidos.");
+
+        DesplegableTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "HARDWARE", "SOFTWARE", "RED", "PERIFERICOS" }));
+
+        DesplegablePrioridad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alta", "Media", "Baja"}));
 
         jDesktopPanel.setLayer(jButtonAyuda, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPanel.setLayer(jLabelTitulo, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -116,13 +115,12 @@ public class Incidencia extends javax.swing.JFrame {
         jDesktopPanel.setLayer(jTextFieldNombre, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPanel.setLayer(jLabelComentarios, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPanel.setLayer(jButtonEnviar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPanel.setLayer(jDateChooser, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPanel.setLayer(jTextFieldPrioridad, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPanel.setLayer(jLabelPrioridad, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPanel.setLayer(jLabelTipoIncidencia, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPanel.setLayer(jTextFieldTipoIncidencia, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPanel.setLayer(jLabelDispositivo, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPanel.setLayer(jTextFieldDispositivo, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPanel.setLayer(DesplegableTipo, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPanel.setLayer(DesplegablePrioridad, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPanelLayout = new javax.swing.GroupLayout(jDesktopPanel);
         jDesktopPanel.setLayout(jDesktopPanelLayout);
@@ -140,29 +138,28 @@ public class Incidencia extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldTitulo))
                     .addGroup(jDesktopPanelLayout.createSequentialGroup()
-                        .addComponent(jLabelFechaIncidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE))
-                    .addGroup(jDesktopPanelLayout.createSequentialGroup()
-                        .addComponent(jLabelPrioridad, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldPrioridad))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPanelLayout.createSequentialGroup()
-                        .addComponent(jLabelTipoIncidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldTipoIncidencia))
-                    .addGroup(jDesktopPanelLayout.createSequentialGroup()
                         .addComponent(jLabelDispositivo, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldDispositivo))
                     .addGroup(jDesktopPanelLayout.createSequentialGroup()
                         .addComponent(jLabelComentarios, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE))
                     .addGroup(jDesktopPanelLayout.createSequentialGroup()
                         .addComponent(jButtonAyuda, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonEnviar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jButtonEnviar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jDesktopPanelLayout.createSequentialGroup()
+                        .addComponent(jLabelFechaIncidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jDesktopPanelLayout.createSequentialGroup()
+                        .addComponent(jLabelTipoIncidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(DesplegableTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jDesktopPanelLayout.createSequentialGroup()
+                        .addComponent(jLabelPrioridad, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(DesplegablePrioridad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jDesktopPanelLayout.setVerticalGroup(
@@ -177,21 +174,19 @@ public class Incidencia extends javax.swing.JFrame {
                     .addComponent(jTextFieldTitulo)
                     .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jDesktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabelFechaIncidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabelFechaIncidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jDesktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldTipoIncidencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelTipoIncidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelTipoIncidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(DesplegableTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jDesktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldDispositivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelDispositivo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jDesktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldPrioridad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelPrioridad, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelPrioridad, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(DesplegablePrioridad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jDesktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelComentarios, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -278,9 +273,10 @@ public class Incidencia extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> DesplegablePrioridad;
+    private javax.swing.JComboBox<String> DesplegableTipo;
     private javax.swing.JButton jButtonAyuda;
     private javax.swing.JButton jButtonEnviar;
-    private com.toedter.calendar.JDateChooser jDateChooser;
     private javax.swing.JDesktopPane jDesktopPanel;
     private javax.swing.JLabel jLabelComentarios;
     private javax.swing.JLabel jLabelDispositivo;
@@ -293,8 +289,6 @@ public class Incidencia extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextAreaComentarios;
     private javax.swing.JTextField jTextFieldDispositivo;
     private javax.swing.JTextField jTextFieldNombre;
-    private javax.swing.JTextField jTextFieldPrioridad;
-    private javax.swing.JTextField jTextFieldTipoIncidencia;
     private javax.swing.JTextField jTextFieldTitulo;
     // End of variables declaration//GEN-END:variables
 }

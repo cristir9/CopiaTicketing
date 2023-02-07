@@ -60,21 +60,6 @@
                           <Component id="jTextFieldTitulo" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabelFechaIncidencia" min="-2" pref="116" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jDateChooser" pref="645" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabelPrioridad" min="-2" pref="116" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jTextFieldPrioridad" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="jLabelTipoIncidencia" min="-2" pref="116" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jTextFieldTipoIncidencia" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabelDispositivo" min="-2" pref="116" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jTextFieldDispositivo" max="32767" attributes="0"/>
@@ -82,12 +67,26 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabelComentarios" min="-2" pref="116" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" pref="645" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jButtonAyuda" min="-2" pref="116" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jButtonEnviar" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Component id="jLabelFechaIncidencia" min="-2" pref="116" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jLabelTipoIncidencia" min="-2" pref="116" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="DesplegableTipo" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jLabelPrioridad" min="-2" pref="116" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="DesplegablePrioridad" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -108,14 +107,11 @@
                       <Component id="jLabelTitulo" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jLabelFechaIncidencia" min="-2" pref="25" max="-2" attributes="0"/>
-                      <Component id="jDateChooser" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="jLabelFechaIncidencia" min="-2" pref="25" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jTextFieldTipoIncidencia" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabelTipoIncidencia" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="DesplegableTipo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -124,8 +120,8 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jTextFieldPrioridad" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabelPrioridad" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="DesplegablePrioridad" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -209,13 +205,6 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonEnviarActionPerformed"/>
           </Events>
         </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser">
-        </Component>
-        <Component class="javax.swing.JTextField" name="jTextFieldPrioridad">
-          <Properties>
-            <Property name="toolTipText" type="java.lang.String" value="Indique sus apellidos."/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabelPrioridad">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="4"/>
@@ -228,11 +217,6 @@
             <Property name="text" type="java.lang.String" value="Tipo:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextFieldTipoIncidencia">
-          <Properties>
-            <Property name="toolTipText" type="java.lang.String" value="Indique sus apellidos."/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabelDispositivo">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="4"/>
@@ -243,6 +227,26 @@
           <Properties>
             <Property name="toolTipText" type="java.lang.String" value="Indique sus apellidos."/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="DesplegableTipo">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;HARDWARE&quot;, &quot;SOFTWARE&quot;, &quot;RED&quot;, &quot;PERIFERICOS&quot; })" type="code"/>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="DesplegablePrioridad">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;Alta&quot;, &quot;Media&quot;, &quot;Baja&quot;})" type="code"/>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
