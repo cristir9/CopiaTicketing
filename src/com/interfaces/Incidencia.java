@@ -36,7 +36,6 @@ public class Incidencia extends javax.swing.JFrame {
         jTextFieldTitulo = new javax.swing.JTextField();
         jLabelFechaIncidencia = new javax.swing.JLabel();
         jLabelNombre = new javax.swing.JLabel();
-        jDateChooser = new com.toedter.calendar.JDateChooser();
         jTextFieldNombre = new javax.swing.JTextField();
         jLabelComentarios = new javax.swing.JLabel();
         jButtonEnviar = new javax.swing.JButton();
@@ -65,8 +64,6 @@ public class Incidencia extends javax.swing.JFrame {
         jLabelNombre.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabelNombre.setText("Nombre:");
 
-        jDateChooser.setToolTipText("Seleccione la fecha de la incidencia.");
-
         jTextFieldNombre.setToolTipText("Indique su nombre");
         jTextFieldNombre.setFocusable(false);
 
@@ -86,7 +83,6 @@ public class Incidencia extends javax.swing.JFrame {
         jDesktopPanel.setLayer(jTextFieldTitulo, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPanel.setLayer(jLabelFechaIncidencia, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPanel.setLayer(jLabelNombre, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPanel.setLayer(jDateChooser, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPanel.setLayer(jTextFieldNombre, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPanel.setLayer(jLabelComentarios, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPanel.setLayer(jButtonEnviar, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -114,8 +110,7 @@ public class Incidencia extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jDesktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jButtonEnviar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE)
-                            .addComponent(jDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jDesktopPanelLayout.setVerticalGroup(
@@ -130,9 +125,7 @@ public class Incidencia extends javax.swing.JFrame {
                     .addComponent(jTextFieldTitulo)
                     .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jDesktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelFechaIncidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabelFechaIncidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jDesktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelComentarios, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -225,7 +218,6 @@ public class Incidencia extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAyuda;
     private javax.swing.JButton jButtonEnviar;
-    private com.toedter.calendar.JDateChooser jDateChooser;
     private javax.swing.JDesktopPane jDesktopPanel;
     private javax.swing.JLabel jLabelComentarios;
     private javax.swing.JLabel jLabelFechaIncidencia;

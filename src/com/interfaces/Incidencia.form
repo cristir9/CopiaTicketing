@@ -75,7 +75,6 @@
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="jButtonEnviar" alignment="1" max="32767" attributes="0"/>
                               <Component id="jScrollPane1" alignment="1" pref="645" max="32767" attributes="0"/>
-                              <Component id="jDateChooser" alignment="1" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -97,10 +96,7 @@
                       <Component id="jLabelTitulo" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabelFechaIncidencia" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
-                      <Component id="jDateChooser" alignment="0" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="jLabelFechaIncidencia" min="-2" pref="25" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabelComentarios" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
@@ -161,11 +157,6 @@
           <Properties>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" value="Nombre:"/>
-          </Properties>
-        </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser">
-          <Properties>
-            <Property name="toolTipText" type="java.lang.String" value="Seleccione la fecha de la incidencia."/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldNombre">
