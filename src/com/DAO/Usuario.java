@@ -4,11 +4,13 @@
  */
 package com.DAO;
 
+import java.io.Serializable;
+
 /**
  *
  * @author dev
  */
-public class Usuario {
+public class Usuario implements Serializable{
 
     private int id;
     private String nombre;

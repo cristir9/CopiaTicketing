@@ -10,43 +10,47 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class TicketDAOImpl implements TicketDAO, AutoCloseable {
 
     private String URL;
     Connection con = null;
+    Usuario u;
 
     static {
         try {
-            Class.forName("org.mariadb.jdbc.Driver");
+            Class.forName("org.mysql.jdbc.Driver");
         } catch (Exception e) {
         }
     }
 
-    public TicketDAOImpl(String fileName) throws SQLException {
-        this.URL = "jdbc:mariadb://localhost:3306/" + fileName;
-        this.con = DriverManager.getConnection(URL);
+    public TicketDAOImpl(String fileName, Usuario u) throws SQLException {
+        this.URL = "jdbc:mysql://localhost:3306/" + fileName;
+        this.con = DriverManager.getConnection(URL, "root", "root");
+        this.u = u;
+    }
+
+    public TicketDAOImpl(Usuario u) throws SQLException {
+        this.URL = "jdbc:mysql://localhost:3306/TICKETING";
+        this.con = DriverManager.getConnection(URL, "root", "root");
+        this.u = u;
     }
 
     @Override
     public void RegistrarIncidencia(Incidencia i) {
-        String sql = "INSERT INTO INCIDENCIA VALUES (?,?,?,?,?,?,?,?,?,?,?)";
-
+        String sql = "INSERT INTO INCIDENCIA (FECHA_INICIO, FECHA_PUBLICACION, ID_ESTADO, ID_USUARIO, ID_TIPOINCIDENCIA,"
+                + " ID_DISPOSITIVO, DESCRIPCION_INCIDENCIA, ID_PRIORIDAD) VALUES (?,?,?,?,?,?,?,?)";
         try (PreparedStatement ps = this.con.prepareStatement(sql)) {
-            ps.setInt(1, i.getId());
-            ps.setDate(2, (Date) i.getFechaInicio());
-            ps.setDate(3, (Date) i.getFechaFinal());
-            ps.setInt(4, i.getIdEstado());
+            ps.setDate(1, (Date) i.getFechaInicio());
+            ps.setDate(2, Date.valueOf(LocalDate.now()));
+            ps.setInt(3, 1);
+            ps.setInt(4, u.getId());
             ps.setInt(5, i.getIdTipoIncidencia());
             ps.setInt(6, i.getIdDispositivo());
             ps.setString(7, i.getDescripcion());
-            ps.setString(8, i.getSolucion());
-            ps.setInt(9, i.getIdUsuarioTecnico());
-            ps.setInt(10, i.getIdPrioridad());
-            ps.setInt(11, i.getIdUsuarioAfectado());
+            ps.setInt(8, i.getIdPrioridad());
             ps.executeUpdate();
 
         } catch (Exception e) {
@@ -67,8 +71,8 @@ public class TicketDAOImpl implements TicketDAO, AutoCloseable {
             ps.setInt(1, id);
             rs = ps.executeQuery();
             while (rs.next()) {
-                Incidencia i = new Incidencia(rs.getInt(1), rs.getDate(2), rs.getDate(3), rs.getInt(4), rs.getInt(5), rs.getInt(6),
-                        rs.getString(7), rs.getString(8), rs.getInt(9), rs.getInt(10), rs.getInt(11));
+                Incidencia i = new Incidencia(rs.getInt(1), rs.getDate(2), rs.getDate(3), rs.getDate(4), rs.getInt(5), rs.getInt(6), rs.getInt(7),
+                        rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12));
                 al.add(i);
             }
             return al;

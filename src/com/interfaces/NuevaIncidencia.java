@@ -4,8 +4,13 @@
  */
 package com.interfaces;
 
+import com.DAO.Incidencia;
+import com.DAO.TicketDAOImpl;
 import com.DAO.Usuario;
+import java.sql.SQLException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -228,18 +233,23 @@ public class NuevaIncidencia extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAyudaActionPerformed
 
     private void jButtonEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnviarActionPerformed
-        String[] info = new String[5];
-        info[0] = jTextFieldNombre.getText();
-        info[1] = jTextFieldTitulo.getText();
-        info[2] = jDateChooser.getDate().toString();
-        info[3] = jTextAreaComentarios.getText();
-        java.util.Date fecha = new Date();
-        info[4] = fecha.toString();
-        System.out.println("Nombre: " + info[0]);
-        System.out.println("Apellidos: " + info[1]);
-        System.out.println("Fecha incidencia: " + info[2]);
-        System.out.println("Fecha envío incidencia: " + info[4]);
-        System.out.println("Comentarios: \n" + info[3]);
+        try {
+            TicketDAOImpl tdi = new TicketDAOImpl(this.u);
+            Incidencia i = new Incidencia();
+            i.setId(this.u.getId());
+            i.setDescripcion(this.jTextAreaComentarios.getText());
+            i.setFechaInicio((java.sql.Date) this.jDateChooser.getDate());
+            if (a) {
+                i.setIdTipoIncidencia(1);
+            }
+            i.setIdDispositivo(this.jTextFieldDispositivo.getText());
+            if (a) {
+                i.setIdPrioridad(1);
+            }
+            tdi.RegistrarIncidencia(i);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_jButtonEnviarActionPerformed
 
     /**

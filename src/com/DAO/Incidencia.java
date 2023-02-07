@@ -7,14 +7,14 @@ package com.DAO;
 import java.io.Serializable;
 import java.sql.Date;
 
-
 /**
  *
  * @author dev
  */
 public class Incidencia implements Serializable {
-    
+
     private int id;
+    private Date fechaAlta;
     private Date fechaInicio;
     private Date fechaFinal;
     private int idEstado;
@@ -26,8 +26,9 @@ public class Incidencia implements Serializable {
     private int idPrioridad;
     private int idUsuarioAfectado;
 
-    public Incidencia(int id, Date fechaInicio, Date fechaFinal, int idEstado, int idTipoIncidencia, int idDispositivo, String descripcion, String solucion, int idUsuarioTecnico, int idPrioridad, int idUsuarioAfectado) {
+    public Incidencia(int id, Date fechaAlta, Date fechaInicio, Date fechaFinal, int idEstado, int idTipoIncidencia, int idDispositivo, String descripcion, String solucion, int idUsuarioTecnico, int idPrioridad, int idUsuarioAfectado) {
         this.id = id;
+        this.fechaAlta = fechaAlta;
         this.fechaInicio = fechaInicio;
         this.fechaFinal = fechaFinal;
         this.idEstado = idEstado;
@@ -38,6 +39,9 @@ public class Incidencia implements Serializable {
         this.idUsuarioTecnico = idUsuarioTecnico;
         this.idPrioridad = idPrioridad;
         this.idUsuarioAfectado = idUsuarioAfectado;
+    }
+
+    public Incidencia() {
     }
 
     public int getIdUsuarioAfectado() {
@@ -130,11 +134,14 @@ public class Incidencia implements Serializable {
 
     @Override
     public String toString() {
-        return "Incidencia id => " + id + ": fechaInicio= " + fechaInicio + ", fechaFinal= " + fechaFinal + ", idEstado= " + idEstado + ", idTipoIncidencia= " + idTipoIncidencia + ", idDispositivo= " + idDispositivo + ", descripcion= " + descripcion + ", solucion= " + solucion + ", idUsuarioTecnico= " + idUsuarioTecnico + ", idPrioridad= " + idPrioridad + ", idUsuarioAfectado= " + idUsuarioAfectado;
+        return "Incidencia id => " + id + ": fechaInicio= " + fechaAlta + ", fechaFinal= " + fechaFinal + ", idEstado= " + idEstado + ", idTipoIncidencia= " + idTipoIncidencia + ", idDispositivo= " + idDispositivo + ", descripcion= " + descripcion + ", solucion= " + solucion + ", idUsuarioTecnico= " + idUsuarioTecnico + ", idPrioridad= " + idPrioridad + ", idUsuarioAfectado= " + idUsuarioAfectado;
     }
-    
-    
-    
-    
-    
+
+    public Date getFechaAlta() {
+        return fechaAlta;
+    }
+
+    public void setFechaAlta(Date fechaAlta) {
+        this.fechaAlta = fechaAlta;
+    }
 }

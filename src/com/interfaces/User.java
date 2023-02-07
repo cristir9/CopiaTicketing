@@ -4,7 +4,16 @@
  */
 package com.interfaces;
 
+import com.DAO.Incidencia;
+import com.DAO.TicketDAOImpl;
+import com.DAO.Usuario;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -12,11 +21,19 @@ import java.util.ArrayList;
  */
 public class User extends javax.swing.JFrame {
 
+    public Usuario u;
+
     /**
      * Creates new form User
      */
     public User() {
         initComponents();
+        this.u = new Usuario();
+    }
+
+    public User(Usuario u) {
+        initComponents();
+        this.u = u;
     }
 
     /**
@@ -34,19 +51,37 @@ public class User extends javax.swing.JFrame {
         jButtonCerrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jTableIncidencias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "ID", "Estado", "Título", "Fecha apertura", "Ultima modificacion", "Fecha cierre"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(jTableIncidencias);
+        if (jTableIncidencias.getColumnModel().getColumnCount() > 0) {
+            jTableIncidencias.getColumnModel().getColumn(0).setResizable(false);
+            jTableIncidencias.getColumnModel().getColumn(1).setResizable(false);
+            jTableIncidencias.getColumnModel().getColumn(2).setResizable(false);
+            jTableIncidencias.getColumnModel().getColumn(3).setResizable(false);
+            jTableIncidencias.getColumnModel().getColumn(4).setResizable(false);
+            jTableIncidencias.getColumnModel().getColumn(5).setResizable(false);
+        }
 
         jButtonNuevaIncidencia.setText("Nueva incidencia");
         jButtonNuevaIncidencia.addActionListener(new java.awt.event.ActionListener() {
@@ -93,14 +128,17 @@ public class User extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonNuevaIncidenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevaIncidenciaActionPerformed
-        super.setSize(super.getWidth(), 830);
-        jButtonCerrar.setEnabled(true);
+      NuevaIncidencia ni = new NuevaIncidencia(this.u);
+      ni.setVisible(true);
     }//GEN-LAST:event_jButtonNuevaIncidenciaActionPerformed
 
     private void jButtonCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarActionPerformed
-        super.setSize(super.getWidth(), 520);
-        jButtonCerrar.setEnabled(false);
+       
     }//GEN-LAST:event_jButtonCerrarActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        this.rellenarTablaIncidencias();
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -136,7 +174,27 @@ public class User extends javax.swing.JFrame {
             }
         });
     }
-    
+
+    public void rellenarTablaIncidencias() {
+        try (TicketDAOImpl tdi = new TicketDAOImpl(this.u)) {
+            this.u.setId(1);
+            ArrayList<Incidencia> al = tdi.ObtenerIncidenciasPorIdUsuario(this.u.getId());
+            DefaultTableModel dtm = (DefaultTableModel) this.jTableIncidencias.getModel();
+            dtm.setNumRows(0);
+//            Object[] array = {1,2,"Incidencia de nuevo",LocalDate.now(),LocalDate.now(),LocalDate.now()};
+//            dtm.addRow(array);
+            for (Incidencia i : al) {
+                Object[] array = {i.getId(), i.getIdEstado(), i.getSolucion(), i.getFechaInicio(), i.getFechaFinal(), i.getFechaFinal()};
+                System.out.println(i);
+                dtm.addRow(array);
+            }
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCerrar;
     private javax.swing.JButton jButtonNuevaIncidencia;
