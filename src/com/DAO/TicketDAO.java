@@ -4,6 +4,8 @@
  */
 package com.DAO;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author dev
@@ -12,5 +14,5 @@ public interface TicketDAO {
     
     public void RegistrarIncidencia(Incidencia i);
     public void ModificarIncidencia();
-    
+    public ArrayList<Incidencia> ObtenerIncidenciasPorIdUsuario(int id);
 }

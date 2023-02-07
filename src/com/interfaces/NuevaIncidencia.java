@@ -11,18 +11,18 @@ import java.util.Date;
  *
  * @author dev
  */
-public class Incidencia extends javax.swing.JFrame {
+public class NuevaIncidencia extends javax.swing.JFrame {
 
     private Usuario u;
 
     /**
      * Creates new form Incidencia
      */
-    public Incidencia() {
+    public NuevaIncidencia() {
         initComponents();
     }
 
-    public Incidencia(Usuario u) {
+    public NuevaIncidencia(Usuario u) {
         initComponents();
         this.u = u;
     }
@@ -259,20 +259,21 @@ public class Incidencia extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Incidencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NuevaIncidencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Incidencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NuevaIncidencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Incidencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NuevaIncidencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Incidencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NuevaIncidencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Incidencia().setVisible(true);
+                new NuevaIncidencia().setVisible(true);
             }
         });
     }

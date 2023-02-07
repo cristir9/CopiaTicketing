@@ -4,6 +4,8 @@
  */
 package com.interfaces;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author dev
@@ -134,7 +136,7 @@ public class User extends javax.swing.JFrame {
             }
         });
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCerrar;
     private javax.swing.JButton jButtonNuevaIncidencia;
