@@ -4,6 +4,8 @@
  */
 package com.interfaces;
 
+import java.util.Date;
+
 /**
  *
  * @author dev
