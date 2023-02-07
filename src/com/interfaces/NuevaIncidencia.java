@@ -239,6 +239,7 @@ public class NuevaIncidencia extends javax.swing.JFrame {
             i.setId(this.u.getId());
             i.setDescripcion(this.jTextAreaComentarios.getText());
             i.setFechaInicio((java.sql.Date) this.jDateChooser.getDate());
+            //Faltan los condicionales para las inserciones de los tipos de incidencia y del id de dispositivo
             if (a) {
                 i.setIdTipoIncidencia(1);
             }
