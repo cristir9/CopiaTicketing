@@ -1,18 +1,10 @@
-# SimpleJavaLoginMD
-Login with Java Swing and material design style (only design).
+# Ticketing Project
+Plataforma de ticketing.
 
 ## Features
-✔️ Graphic interface with Material Design style.\
-✔️ Basic visual effects like mouse hover.\
-✔️ Custom header bar and close icon.
-
-## Preview
-
-<p align="center">
-  <kbd>
-    <img src="https://i.ibb.co/DgwwkBw/loginnew.png"></img>
-  </kbd>
-</p>
+- Login
 
 ## Note
-This is only design. No contains a login system, just capture the username and password and you can use the authentication method that you prefer.
+  <kbd>
+    <embed src="https://drive.google.com/file/d/1lwpwOoQaEgHvaGCyqa_zIPL2tThuJK-k/view?usp=share_link" type="application/pdf" width="100%" height="600px" />
+  </kbd>
