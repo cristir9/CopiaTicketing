@@ -97,6 +97,11 @@ public class Admin extends javax.swing.JFrame {
         botonBuscarUsuario.setText("Buscar");
 
         textoNombreUsuario.setText("Nombre usuario");
+        textoNombreUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                textoNombreUsuarioMouseClicked(evt);
+            }
+        });
 
         botonModificar.setText("Modificar");
 
@@ -145,6 +150,10 @@ public class Admin extends javax.swing.JFrame {
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         this.rellenarTablaIncidencias();
     }//GEN-LAST:event_formWindowActivated
+
+    private void textoNombreUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoNombreUsuarioMouseClicked
+       this.textoNombreUsuario.setText("");
+    }//GEN-LAST:event_textoNombreUsuarioMouseClicked
 
     /**
      * @param args the command line arguments
