@@ -4,7 +4,12 @@
  */
 package com.interfaces;
 
+import com.DAO.Incidencia;
+import com.DAO.TicketDAOImpl;
 import com.DAO.Usuario;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -25,6 +30,22 @@ public class Admin extends javax.swing.JFrame {
         initComponents();
         this.u = u;
     }
+    public void rellenarTablaIncidencias() {
+        try (TicketDAOImpl tdi = new TicketDAOImpl(this.u)) {
+            ArrayList<Incidencia> al = tdi.ObtenerAllIncidencias();
+            DefaultTableModel dtm = (DefaultTableModel) this.jTableIncidencias.getModel();
+            dtm.setNumRows(0);
+            for (Incidencia i : al) {
+                Object[] array = {i.getId(), i.getIdEstado(), i.getSolucion(), i.getFechaInicio(), i.getFechaFinal(), i.getFechaFinal()};
+                System.out.println(i);
+                dtm.addRow(array);
+            }
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -35,21 +56,95 @@ public class Admin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableIncidencias = new javax.swing.JTable();
+        botonBuscarUsuario = new javax.swing.JButton();
+        textoNombreUsuario = new javax.swing.JTextField();
+        botonModificar = new javax.swing.JButton();
+        botonBorrar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
+
+        jTableIncidencias.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Estado", "Título", "Fecha apertura", "Ultima modificacion", "Fecha cierre"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableIncidencias.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableIncidenciasMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTableIncidencias);
+
+        botonBuscarUsuario.setText("Buscar");
+
+        textoNombreUsuario.setText("Nombre usuario");
+
+        botonModificar.setText("Modificar");
+
+        botonBorrar.setText("Borrar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 724, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(textoNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonBuscarUsuario)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 274, Short.MAX_VALUE)
+                        .addComponent(botonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 455, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonBuscarUsuario)
+                    .addComponent(textoNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonModificar)
+                    .addComponent(botonBorrar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTableIncidenciasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableIncidenciasMouseClicked
+        this.botonBorrar.setEnabled(true);
+        this.botonModificar.setEnabled(true);
+    }//GEN-LAST:event_jTableIncidenciasMouseClicked
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        this.rellenarTablaIncidencias();
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -87,5 +182,11 @@ public class Admin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonBorrar;
+    private javax.swing.JButton botonBuscarUsuario;
+    private javax.swing.JButton botonModificar;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTableIncidencias;
+    private javax.swing.JTextField textoNombreUsuario;
     // End of variables declaration//GEN-END:variables
 }
