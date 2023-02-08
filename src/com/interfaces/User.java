@@ -141,20 +141,25 @@ public class User extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonNuevaIncidenciaActionPerformed
 
     private void jButtonCerrarIncidenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarIncidenciaActionPerformed
-        try (TicketDAOImpl tdi = new TicketDAOImpl(this.u)){
+        int idIncidencia = -1;
+        try (TicketDAOImpl tdi = new TicketDAOImpl(this.u)) {
             DefaultTableModel dtm = (DefaultTableModel) this.jTableIncidencias.getModel();
             if (this.jTableIncidencias.getSelectedRow() != -1) {
-                int idIncidencia =(Integer) dtm.getValueAt(this.jTableIncidencias.getSelectedRow(), 0);
+                idIncidencia = (Integer) dtm.getValueAt(this.jTableIncidencias.getSelectedRow(), 0);
             }
             if (JOptionPane.showConfirmDialog(null, "¿De verdad deseas cerrar la incidencia?\nEsta acción es irreversible.", "OJOCUIDAO",
                     JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-            // yes option
-            
-            
+                // yes option
+                if (idIncidencia != -1) {
+                    tdi.cerrarIncidencia(idIncidencia);
+                    this.rellenarTablaIncidencias();
+                }
             } else {
-            // no option
+                // no option
             }
         } catch (SQLException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonCerrarIncidenciaActionPerformed

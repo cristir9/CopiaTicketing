@@ -61,6 +61,16 @@ public class TicketDAOImpl implements TicketDAO, AutoCloseable {
     @Override
     public void ModificarIncidencia() {
     }
+    
+    public void cerrarIncidencia(int id){
+        String sql = "UPDATE INCIDENCIA SET FECHA_FIN = NOW(), ID_ESTADO = 3 WHERE ID_INCIDENCIA = ?";
+        try (PreparedStatement ps = this.con.prepareStatement(sql)) {
+            ps.setInt(1,id);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public ArrayList<Incidencia> ObtenerIncidenciasPorIdUsuario(int id) {
