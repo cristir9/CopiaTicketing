@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -48,7 +49,7 @@ public class User extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableIncidencias = new javax.swing.JTable();
         jButtonNuevaIncidencia = new javax.swing.JButton();
-        jButtonCerrar = new javax.swing.JButton();
+        jButtonCerrarIncidencia = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -73,6 +74,11 @@ public class User extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableIncidencias.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableIncidenciasMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTableIncidencias);
         if (jTableIncidencias.getColumnModel().getColumnCount() > 0) {
             jTableIncidencias.getColumnModel().getColumn(0).setResizable(false);
@@ -90,11 +96,11 @@ public class User extends javax.swing.JFrame {
             }
         });
 
-        jButtonCerrar.setText("Cerrar");
-        jButtonCerrar.setEnabled(false);
-        jButtonCerrar.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCerrarIncidencia.setText("Cerrar incidencia");
+        jButtonCerrarIncidencia.setEnabled(false);
+        jButtonCerrarIncidencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCerrarActionPerformed(evt);
+                jButtonCerrarIncidenciaActionPerformed(evt);
             }
         });
 
@@ -104,12 +110,12 @@ public class User extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 708, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonNuevaIncidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonNuevaIncidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButtonCerrarIncidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -120,7 +126,7 @@ public class User extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonNuevaIncidencia)
-                    .addComponent(jButtonCerrar))
+                    .addComponent(jButtonCerrarIncidencia))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -134,13 +140,32 @@ public class User extends javax.swing.JFrame {
         ni.requestFocus();
     }//GEN-LAST:event_jButtonNuevaIncidenciaActionPerformed
 
-    private void jButtonCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarActionPerformed
-
-    }//GEN-LAST:event_jButtonCerrarActionPerformed
+    private void jButtonCerrarIncidenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarIncidenciaActionPerformed
+        try (TicketDAOImpl tdi = new TicketDAOImpl(this.u)){
+            DefaultTableModel dtm = (DefaultTableModel) this.jTableIncidencias.getModel();
+            if (this.jTableIncidencias.getSelectedRow() != -1) {
+                int idIncidencia =(Integer) dtm.getValueAt(this.jTableIncidencias.getSelectedRow(), 0);
+            }
+            if (JOptionPane.showConfirmDialog(null, "¿De verdad deseas cerrar la incidencia?\nEsta acción es irreversible.", "OJOCUIDAO",
+                    JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            // yes option
+            
+            
+            } else {
+            // no option
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonCerrarIncidenciaActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         this.rellenarTablaIncidencias();
     }//GEN-LAST:event_formWindowActivated
+
+    private void jTableIncidenciasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableIncidenciasMouseClicked
+        this.jButtonCerrarIncidencia.setEnabled(true);
+    }//GEN-LAST:event_jTableIncidenciasMouseClicked
 
     /**
      * @param args the command line arguments
@@ -197,8 +222,17 @@ public class User extends javax.swing.JFrame {
         }
     }
 
+//    
+//    tabla.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+//public void valueChanged(ListSelectionEvent event) {
+//eliminarButton.setVisible(true);
+//modificarButton.setVisible(true);
+//
+//}
+//
+//});
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonCerrar;
+    private javax.swing.JButton jButtonCerrarIncidencia;
     private javax.swing.JButton jButtonNuevaIncidencia;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableIncidencias;

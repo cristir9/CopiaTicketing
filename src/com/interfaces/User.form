@@ -28,12 +28,12 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jScrollPane2" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jScrollPane2" min="-2" pref="708" max="-2" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Component id="jButtonNuevaIncidencia" min="-2" pref="586" max="-2" attributes="0"/>
+                      <Component id="jButtonNuevaIncidencia" min="-2" pref="551" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButtonCerrar" min="-2" pref="116" max="-2" attributes="0"/>
+                      <Component id="jButtonCerrarIncidencia" min="-2" pref="151" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
@@ -48,7 +48,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jButtonNuevaIncidencia" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButtonCerrar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonCerrarIncidencia" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -113,6 +113,9 @@
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableIncidenciasMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -124,13 +127,13 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonNuevaIncidenciaActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButtonCerrar">
+    <Component class="javax.swing.JButton" name="jButtonCerrarIncidencia">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Cerrar"/>
+        <Property name="text" type="java.lang.String" value="Cerrar incidencia"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCerrarActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCerrarIncidenciaActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
