@@ -61,11 +61,12 @@ public class TicketDAOImpl implements TicketDAO, AutoCloseable {
     @Override
     public void ModificarIncidencia() {
     }
-    
-    public void cerrarIncidencia(int id){
+
+    @Override
+    public void cerrarIncidencia(int id) {
         String sql = "UPDATE INCIDENCIA SET FECHA_FIN = NOW(), ID_ESTADO = 3 WHERE ID_INCIDENCIA = ?";
         try (PreparedStatement ps = this.con.prepareStatement(sql)) {
-            ps.setInt(1,id);
+            ps.setInt(1, id);
             ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -79,6 +80,31 @@ public class TicketDAOImpl implements TicketDAO, AutoCloseable {
         ResultSet rs = null;
         try (PreparedStatement ps = this.con.prepareStatement(sql)) {
             ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Incidencia i = new Incidencia(rs.getInt(1), rs.getDate(2), rs.getDate(3), rs.getDate(4), rs.getInt(5), rs.getInt(6), rs.getInt(7),
+                        rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12));
+                al.add(i);
+            }
+            return al;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                rs.close();
+            } catch (SQLException sqle) {
+                sqle.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public ArrayList<Incidencia> ObtenerAllIncidencias() {
+        ArrayList al = new ArrayList();
+        String sql = "SELECT * FROM INCIDENCIA";
+        ResultSet rs = null;
+        try (PreparedStatement ps = this.con.prepareStatement(sql)) {
             rs = ps.executeQuery();
             while (rs.next()) {
                 Incidencia i = new Incidencia(rs.getInt(1), rs.getDate(2), rs.getDate(3), rs.getDate(4), rs.getInt(5), rs.getInt(6), rs.getInt(7),

@@ -16,4 +16,5 @@ public interface TicketDAO {
     public void ModificarIncidencia();
     public ArrayList<Incidencia> ObtenerIncidenciasPorIdUsuario(int id);
     public void cerrarIncidencia(int id);
+    public ArrayList<Incidencia> ObtenerAllIncidencias();
 }

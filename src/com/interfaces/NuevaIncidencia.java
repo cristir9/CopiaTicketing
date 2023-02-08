@@ -65,6 +65,9 @@ public class NuevaIncidencia extends javax.swing.JFrame {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
+            public void windowDeactivated(java.awt.event.WindowEvent evt) {
+                formWindowDeactivated(evt);
+            }
         });
 
         jButtonAyuda.setText("Ayuda");
@@ -284,10 +287,16 @@ public class NuevaIncidencia extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonEnviarActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-
+    
     }//GEN-LAST:event_formWindowClosed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+
+    }//GEN-LAST:event_formWindowClosing
+
+    private void formWindowDeactivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowDeactivated
+        this.u = new Usuario();
+        this.u.setTipoUsuario("Usuario");
         if (this.u.getTipoUsuario().equalsIgnoreCase("USUARIO")) {
             User u = new User(this.u);
             u.setVisible(true);
@@ -305,8 +314,10 @@ public class NuevaIncidencia extends javax.swing.JFrame {
             g.setVisible(true);
             g.requestFocus();
         }
-    }//GEN-LAST:event_formWindowClosing
+    }//GEN-LAST:event_formWindowDeactivated
 
+    
+    
     /**
      * @param args the command line arguments
      */
