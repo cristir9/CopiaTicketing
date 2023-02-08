@@ -8,6 +8,7 @@ import com.DAO.Incidencia;
 import com.DAO.TicketDAOImpl;
 import com.DAO.Usuario;
 import java.sql.SQLException;
+import javax.swing.JFrame;
 
 /**
  *
@@ -27,6 +28,7 @@ public class NuevaIncidencia extends javax.swing.JFrame {
     public NuevaIncidencia(Usuario u) {
         initComponents();
         this.u = u;
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
     }
 
     /**
@@ -352,6 +354,8 @@ public class NuevaIncidencia extends javax.swing.JFrame {
                 new NuevaIncidencia().setVisible(true);
             }
         });
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
