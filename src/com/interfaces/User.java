@@ -128,12 +128,14 @@ public class User extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonNuevaIncidenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevaIncidenciaActionPerformed
-      NuevaIncidencia ni = new NuevaIncidencia(this.u);
-      ni.setVisible(true);
+        NuevaIncidencia ni = new NuevaIncidencia(this.u);
+        this.setVisible(false);
+        ni.setVisible(true);
+        ni.requestFocus();
     }//GEN-LAST:event_jButtonNuevaIncidenciaActionPerformed
 
     private void jButtonCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarActionPerformed
-       
+
     }//GEN-LAST:event_jButtonCerrarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated

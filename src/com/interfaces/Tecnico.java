@@ -4,18 +4,27 @@
  */
 package com.interfaces;
 
+import com.DAO.Usuario;
+
 /**
  *
  * @author dev
  */
 public class Tecnico extends javax.swing.JFrame {
 
+    public Usuario u;
+    
     /**
      * Creates new form Tecnico
      */
     public Tecnico() {
         initComponents();
     }
+    public Tecnico(Usuario u) {
+        initComponents();
+        this.u = u;
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

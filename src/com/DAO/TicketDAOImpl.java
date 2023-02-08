@@ -46,7 +46,7 @@ public class TicketDAOImpl implements TicketDAO, AutoCloseable {
             ps.setDate(1, (Date) i.getFechaInicio());
             ps.setDate(2, Date.valueOf(LocalDate.now()));
             ps.setInt(3, 1);
-            ps.setInt(4, u.getId());
+            ps.setInt(4, i.getIdUsuarioAfectado());
             ps.setInt(5, i.getIdTipoIncidencia());
             ps.setInt(6, i.getIdDispositivo());
             ps.setString(7, i.getDescripcion());

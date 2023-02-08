@@ -4,18 +4,28 @@
  */
 package com.interfaces;
 
+import com.DAO.Usuario;
+
 /**
  *
  * @author dev
  */
 public class Gestor extends javax.swing.JFrame {
 
+    public Usuario u;
+    
     /**
      * Creates new form Gestor
      */
     public Gestor() {
         initComponents();
     }
+    
+    public Gestor(Usuario u) {
+        initComponents();
+        this.u = u;
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.

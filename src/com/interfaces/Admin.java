@@ -4,12 +4,16 @@
  */
 package com.interfaces;
 
+import com.DAO.Usuario;
+
 /**
  *
  * @author dev
  */
 public class Admin extends javax.swing.JFrame {
 
+    public Usuario u;
+    
     /**
      * Creates new form Admin
      */
@@ -17,6 +21,11 @@ public class Admin extends javax.swing.JFrame {
         initComponents();
     }
 
+    public Admin(Usuario u) {
+        initComponents();
+        this.u = u;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

@@ -8,9 +8,6 @@ import com.DAO.Incidencia;
 import com.DAO.TicketDAOImpl;
 import com.DAO.Usuario;
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -61,6 +58,14 @@ public class NuevaIncidencia extends javax.swing.JFrame {
         DesplegableDispositivo = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jButtonAyuda.setText("Ayuda");
         jButtonAyuda.addActionListener(new java.awt.event.ActionListener() {
@@ -236,9 +241,9 @@ public class NuevaIncidencia extends javax.swing.JFrame {
         try {
             TicketDAOImpl tdi = new TicketDAOImpl(this.u);
             Incidencia i = new Incidencia();
-            i.setId(this.u.getId());
+            i.setIdUsuarioAfectado(1);
             i.setDescripcion(this.jTextAreaComentarios.getText());
-            i.setFechaInicio((java.sql.Date) this.jDateChooser.getDate());
+            i.setFechaInicio(new java.sql.Date(this.jDateChooser.getDate().getTime()));
             //Faltan los condicionales para las inserciones de los tipos de incidencia y del id de dispositivo
             if (this.DesplegablePrioridad.getSelectedItem().toString().equalsIgnoreCase("ALTA")) {
                 i.setIdPrioridad(1);
@@ -270,8 +275,37 @@ public class NuevaIncidencia extends javax.swing.JFrame {
             tdi.RegistrarIncidencia(i);
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            User u = new User(this.u);
+            this.setVisible(false);
+            u.setVisible(true);
+            u.requestFocus();
         }
     }//GEN-LAST:event_jButtonEnviarActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+
+    }//GEN-LAST:event_formWindowClosed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        if (this.u.getTipoUsuario().equalsIgnoreCase("USUARIO")) {
+            User u = new User(this.u);
+            u.setVisible(true);
+            u.requestFocus();
+        } else if (this.u.getTipoUsuario().equalsIgnoreCase("ADMINISTRADOR")) {
+            Admin a = new Admin(this.u);
+            a.setVisible(true);
+            a.requestFocus();
+        } else if (this.u.getTipoUsuario().equalsIgnoreCase("TECNICO")) {
+            Tecnico t = new Tecnico(this.u);
+            t.setVisible(true);
+            t.requestFocus();
+        } else if (this.u.getTipoUsuario().equalsIgnoreCase("GESTOR")) {
+            Gestor g = new Gestor(this.u);
+            g.setVisible(true);
+            g.requestFocus();
+        }
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
