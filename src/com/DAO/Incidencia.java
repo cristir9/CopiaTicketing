@@ -14,8 +14,10 @@ import java.sql.Date;
 public class Incidencia implements Serializable {
 
     private int id;
+    private String titulo;
     private Date fechaAlta;
     private Date fechaInicio;
+    private Date fechaUltimaModificacion;
     private Date fechaFinal;
     private int idEstado;
     private int idTipoIncidencia;
@@ -26,10 +28,12 @@ public class Incidencia implements Serializable {
     private int idPrioridad;
     private int idUsuarioAfectado;
 
-    public Incidencia(int id, Date fechaAlta, Date fechaInicio, Date fechaFinal, int idEstado, int idTipoIncidencia, int idDispositivo, String descripcion, String solucion, int idUsuarioTecnico, int idPrioridad, int idUsuarioAfectado) {
+    public Incidencia(int id, String titulo, Date fechaAlta, Date fechaInicio, Date fechaUltimaModificacion, Date fechaFinal, int idEstado, int idTipoIncidencia, int idDispositivo, String descripcion, String solucion, int idUsuarioTecnico, int idPrioridad, int idUsuarioAfectado) {
         this.id = id;
+        this.titulo = titulo;
         this.fechaAlta = fechaAlta;
         this.fechaInicio = fechaInicio;
+        this.fechaUltimaModificacion = fechaUltimaModificacion;
         this.fechaFinal = fechaFinal;
         this.idEstado = idEstado;
         this.idTipoIncidencia = idTipoIncidencia;
@@ -144,4 +148,22 @@ public class Incidencia implements Serializable {
     public void setFechaAlta(Date fechaAlta) {
         this.fechaAlta = fechaAlta;
     }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public Date getFechaUltimaModificacion() {
+        return fechaUltimaModificacion;
+    }
+
+    public void setFechaUltimaModificacion(Date fechaUltimaModificacion) {
+        this.fechaUltimaModificacion = fechaUltimaModificacion;
+    }
+    
+    
 }
