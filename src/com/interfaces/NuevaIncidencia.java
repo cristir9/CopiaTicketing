@@ -55,10 +55,10 @@ public class NuevaIncidencia extends javax.swing.JFrame {
         jLabelPrioridad = new javax.swing.JLabel();
         jLabelTipoIncidencia = new javax.swing.JLabel();
         jLabelDispositivo = new javax.swing.JLabel();
-        jTextFieldDispositivo = new javax.swing.JTextField();
         DesplegableTipo = new javax.swing.JComboBox<>();
         DesplegablePrioridad = new javax.swing.JComboBox<>();
         jDateChooser = new com.toedter.calendar.JDateChooser();
+        DesplegableDispositivo = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -106,11 +106,11 @@ public class NuevaIncidencia extends javax.swing.JFrame {
         jLabelDispositivo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabelDispositivo.setText("Dispositivo:");
 
-        jTextFieldDispositivo.setToolTipText("Indique sus apellidos.");
-
         DesplegableTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "HARDWARE", "SOFTWARE", "RED", "PERIFERICOS" }));
 
         DesplegablePrioridad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alta", "Media", "Baja"}));
+
+        DesplegableDispositivo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ordenador sobremesa", "Ordenador Portátil", "Smartphone", "Teclado", "Ratón" }));
 
         jDesktopPanel.setLayer(jButtonAyuda, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPanel.setLayer(jLabelTitulo, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -124,10 +124,10 @@ public class NuevaIncidencia extends javax.swing.JFrame {
         jDesktopPanel.setLayer(jLabelPrioridad, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPanel.setLayer(jLabelTipoIncidencia, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPanel.setLayer(jLabelDispositivo, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPanel.setLayer(jTextFieldDispositivo, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPanel.setLayer(DesplegableTipo, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPanel.setLayer(DesplegablePrioridad, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPanel.setLayer(jDateChooser, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPanel.setLayer(DesplegableDispositivo, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPanelLayout = new javax.swing.GroupLayout(jDesktopPanel);
         jDesktopPanel.setLayout(jDesktopPanelLayout);
@@ -147,7 +147,7 @@ public class NuevaIncidencia extends javax.swing.JFrame {
                     .addGroup(jDesktopPanelLayout.createSequentialGroup()
                         .addComponent(jLabelDispositivo, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldDispositivo))
+                        .addComponent(DesplegableDispositivo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jDesktopPanelLayout.createSequentialGroup()
                         .addComponent(jLabelComentarios, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -191,8 +191,8 @@ public class NuevaIncidencia extends javax.swing.JFrame {
                     .addComponent(DesplegableTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jDesktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldDispositivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelDispositivo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelDispositivo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(DesplegableDispositivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jDesktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelPrioridad, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -240,12 +240,32 @@ public class NuevaIncidencia extends javax.swing.JFrame {
             i.setDescripcion(this.jTextAreaComentarios.getText());
             i.setFechaInicio((java.sql.Date) this.jDateChooser.getDate());
             //Faltan los condicionales para las inserciones de los tipos de incidencia y del id de dispositivo
-            if (a) {
-                i.setIdTipoIncidencia(1);
-            }
-            i.setIdDispositivo(this.jTextFieldDispositivo.getText());
-            if (a) {
+            if (this.DesplegablePrioridad.getSelectedItem().toString().equalsIgnoreCase("ALTA")) {
                 i.setIdPrioridad(1);
+            } else if (this.DesplegablePrioridad.getSelectedItem().toString().equalsIgnoreCase("BAJA")) {
+                i.setIdPrioridad(2);
+            } else if (this.DesplegablePrioridad.getSelectedItem().toString().equalsIgnoreCase("MEDIA")) {
+                i.setIdPrioridad(3);
+            }
+            if (this.DesplegableDispositivo.getSelectedItem().toString().equalsIgnoreCase("ORDENADOR SOBREMESA")) {
+                i.setIdDispositivo(1);
+            } else if (this.DesplegableDispositivo.getSelectedItem().toString().equalsIgnoreCase("ORDENADOR PORTÁTIL")) {
+                i.setIdDispositivo(2);
+            } else if (this.DesplegableDispositivo.getSelectedItem().toString().equalsIgnoreCase("SMARTPHONE")) {
+                i.setIdDispositivo(3);
+            } else if (this.DesplegableDispositivo.getSelectedItem().toString().equalsIgnoreCase("TECLADO")) {
+                i.setIdDispositivo(4);
+            } else if (this.DesplegableDispositivo.getSelectedItem().toString().equalsIgnoreCase("RATÓN")) {
+                i.setIdDispositivo(5);
+            }
+            if (this.DesplegableTipo.getSelectedItem().toString().equalsIgnoreCase("HARDWARE")) {
+                i.setIdTipoIncidencia(1);
+            } else if (this.DesplegableTipo.getSelectedItem().toString().equalsIgnoreCase("SOFTWARE")) {
+                i.setIdTipoIncidencia(2);
+            } else if (this.DesplegableTipo.getSelectedItem().toString().equalsIgnoreCase("RED")) {
+                i.setIdTipoIncidencia(3);
+            } else if (this.DesplegableTipo.getSelectedItem().toString().equalsIgnoreCase("PERIFERICOS")) {
+                i.setIdTipoIncidencia(4);
             }
             tdi.RegistrarIncidencia(i);
         } catch (SQLException ex) {
@@ -290,6 +310,7 @@ public class NuevaIncidencia extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> DesplegableDispositivo;
     private javax.swing.JComboBox<String> DesplegablePrioridad;
     private javax.swing.JComboBox<String> DesplegableTipo;
     private javax.swing.JButton jButtonAyuda;
@@ -305,7 +326,6 @@ public class NuevaIncidencia extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextAreaComentarios;
-    private javax.swing.JTextField jTextFieldDispositivo;
     private javax.swing.JTextField jTextFieldNombre;
     private javax.swing.JTextField jTextFieldTitulo;
     // End of variables declaration//GEN-END:variables
