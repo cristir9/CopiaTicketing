@@ -28,7 +28,9 @@ public class Incidencia implements Serializable {
     private int idPrioridad;
     private int idUsuarioAfectado;
 
-    public Incidencia(int id, String titulo, Date fechaAlta, Date fechaInicio, Date fechaUltimaModificacion, Date fechaFinal, int idEstado, int idTipoIncidencia, int idDispositivo, String descripcion, String solucion, int idUsuarioTecnico, int idPrioridad, int idUsuarioAfectado) {
+    public Incidencia(int id, String titulo, Date fechaInicio, Date fechaAlta, Date fechaUltimaModificacion, Date fechaFinal,
+            int idEstado, int idUsuarioAfectado, int idTipoIncidencia, int idDispositivo, String descripcion, String solucion,
+            int idPrioridad, int idUsuarioTecnico) {
         this.id = id;
         this.titulo = titulo;
         this.fechaAlta = fechaAlta;
@@ -164,6 +166,5 @@ public class Incidencia implements Serializable {
     public void setFechaUltimaModificacion(Date fechaUltimaModificacion) {
         this.fechaUltimaModificacion = fechaUltimaModificacion;
     }
-    
-    
+
 }

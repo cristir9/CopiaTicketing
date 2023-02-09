@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -27,11 +28,16 @@ public class User extends javax.swing.JFrame {
      */
     public User() {
         initComponents();
-        this.u = new Usuario();
+        this.setTitle("USER");
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        Usuario u = new Usuario(9, "user", "user", "9");
+        this.u = u;
     }
 
     public User(Usuario u) {
         initComponents();
+        this.setTitle("USER");
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         this.u = u;
     }
 
@@ -61,11 +67,11 @@ public class User extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Estado", "Título", "Fecha apertura", "Ultima modificacion", "Fecha cierre"
+                "ID", "Estado", "Título", "Fecha apertura", "Ultima modificacion", "Fecha cierre", "Comentarios"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -85,6 +91,7 @@ public class User extends javax.swing.JFrame {
             jTableIncidencias.getColumnModel().getColumn(3).setResizable(false);
             jTableIncidencias.getColumnModel().getColumn(4).setResizable(false);
             jTableIncidencias.getColumnModel().getColumn(5).setResizable(false);
+            jTableIncidencias.getColumnModel().getColumn(6).setResizable(false);
         }
 
         jButtonNuevaIncidencia.setText("Nueva incidencia");
@@ -133,7 +140,7 @@ public class User extends javax.swing.JFrame {
 
     private void jButtonNuevaIncidenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevaIncidenciaActionPerformed
         NuevaIncidencia ni = new NuevaIncidencia(this.u);
-        this.setVisible(false);
+        this.dispose();
         ni.setVisible(true);
         ni.requestFocus();
     }//GEN-LAST:event_jButtonNuevaIncidenciaActionPerformed
@@ -207,14 +214,22 @@ public class User extends javax.swing.JFrame {
 
     public void rellenarTablaIncidencias() {
         try (TicketDAOImpl tdi = new TicketDAOImpl(this.u)) {
+            String estado = "";
             this.u.setId(1);
             ArrayList<Incidencia> al = tdi.ObtenerIncidenciasPorIdUsuario(this.u.getId());
             DefaultTableModel dtm = (DefaultTableModel) this.jTableIncidencias.getModel();
             dtm.setNumRows(0);
-//            Object[] array = {1,2,"Incidencia de nuevo",LocalDate.now(),LocalDate.now(),LocalDate.now()};
-//            dtm.addRow(array);
             for (Incidencia i : al) {
-                Object[] array = {i.getId(), i.getIdEstado(), i.getSolucion(), i.getFechaInicio(), i.getFechaFinal(), i.getFechaFinal()};
+                if (i.getIdEstado() == 1) {
+                    estado = "Abierta";
+                } else if (i.getIdEstado() == 2) {
+                    estado = "En trámite";
+                } else if (i.getIdEstado() == 3) {
+                    estado = "Cerrada";
+                } else if (i.getIdEstado() == 4) {
+                    estado = "resuelta";
+                }
+                Object[] array = {i.getId(), estado, i.getTitulo(), i.getFechaInicio(), i.getFechaFinal(), i.getFechaFinal(), i.getDescripcion()};
                 System.out.println(i);
                 dtm.addRow(array);
             }

@@ -9,6 +9,10 @@ import com.DAO.TicketDAOImpl;
 import com.DAO.Usuario;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,25 +22,34 @@ import javax.swing.table.DefaultTableModel;
 public class Admin extends javax.swing.JFrame {
 
     public Usuario u;
-    
+
     /**
      * Creates new form Admin
      */
     public Admin() {
         initComponents();
+        this.setTitle("ADMINISTRADOR");
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        Usuario u = new Usuario(1, "admin", "admin", "1");
+        this.u = u;
     }
 
     public Admin(Usuario u) {
         initComponents();
+        this.setTitle("ADMINISTRADOR");
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         this.u = u;
     }
+
     public void rellenarTablaIncidencias() {
         try (TicketDAOImpl tdi = new TicketDAOImpl(this.u)) {
             ArrayList<Incidencia> al = tdi.ObtenerAllIncidencias();
             DefaultTableModel dtm = (DefaultTableModel) this.jTableIncidencias.getModel();
             dtm.setNumRows(0);
             for (Incidencia i : al) {
-                Object[] array = {i.getId(), i.getIdEstado(), i.getSolucion(), i.getFechaInicio(), i.getFechaFinal(), i.getFechaFinal()};
+                Object[] array = {i.getId(), i.getIdPrioridad(), i.getIdUsuarioAfectado(), i.getIdEstado(), i.getIdUsuarioTecnico(),
+                    i.getTitulo(), i.getFechaAlta(), i.getFechaUltimaModificacion(), i.getFechaFinal(), i.getIdDispositivo(),
+                    i.getDescripcion(), i.getSolucion()};
                 System.out.println(i);
                 dtm.addRow(array);
             }
@@ -46,7 +59,7 @@ public class Admin extends javax.swing.JFrame {
             ex.printStackTrace();
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -59,9 +72,10 @@ public class Admin extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableIncidencias = new javax.swing.JTable();
         botonBuscarUsuario = new javax.swing.JButton();
-        textoNombreUsuario = new javax.swing.JTextField();
+        textoIDUsuario = new javax.swing.JTextField();
         botonModificar = new javax.swing.JButton();
         botonBorrar = new javax.swing.JButton();
+        jButtonNuevaIncidencia1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -76,11 +90,11 @@ public class Admin extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Estado", "Título", "Fecha apertura", "Ultima modificacion", "Fecha cierre"
+                "ID", "Prioridad", "ID afectado", "Estado", "ID técnico", "Título", "Fecha apertura", "Ultima modificacion", "Fecha cierre", "Dispositivo", "Descripción", "Solución"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -93,19 +107,55 @@ public class Admin extends javax.swing.JFrame {
             }
         });
         jScrollPane2.setViewportView(jTableIncidencias);
+        if (jTableIncidencias.getColumnModel().getColumnCount() > 0) {
+            jTableIncidencias.getColumnModel().getColumn(0).setResizable(false);
+            jTableIncidencias.getColumnModel().getColumn(1).setResizable(false);
+            jTableIncidencias.getColumnModel().getColumn(2).setResizable(false);
+            jTableIncidencias.getColumnModel().getColumn(3).setResizable(false);
+            jTableIncidencias.getColumnModel().getColumn(4).setResizable(false);
+            jTableIncidencias.getColumnModel().getColumn(5).setResizable(false);
+            jTableIncidencias.getColumnModel().getColumn(6).setResizable(false);
+            jTableIncidencias.getColumnModel().getColumn(7).setResizable(false);
+            jTableIncidencias.getColumnModel().getColumn(8).setResizable(false);
+            jTableIncidencias.getColumnModel().getColumn(9).setResizable(false);
+            jTableIncidencias.getColumnModel().getColumn(10).setResizable(false);
+            jTableIncidencias.getColumnModel().getColumn(11).setResizable(false);
+        }
 
         botonBuscarUsuario.setText("Buscar");
+        botonBuscarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonBuscarUsuarioActionPerformed(evt);
+            }
+        });
 
-        textoNombreUsuario.setText("Nombre usuario");
-        textoNombreUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+        textoIDUsuario.setText("ID usuario");
+        textoIDUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                textoNombreUsuarioMouseClicked(evt);
+                textoIDUsuarioMouseClicked(evt);
             }
         });
 
         botonModificar.setText("Modificar");
+        botonModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonModificarActionPerformed(evt);
+            }
+        });
 
-        botonBorrar.setText("Borrar");
+        botonBorrar.setText("Cerrar incidencia");
+        botonBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonBorrarActionPerformed(evt);
+            }
+        });
+
+        jButtonNuevaIncidencia1.setText("Nueva incidencia");
+        jButtonNuevaIncidencia1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNuevaIncidencia1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -116,13 +166,15 @@ public class Admin extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(textoNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textoIDUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botonBuscarUsuario)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 274, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 457, Short.MAX_VALUE)
+                        .addComponent(jButtonNuevaIncidencia1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botonBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(botonBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -131,9 +183,10 @@ public class Admin extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonBuscarUsuario)
-                    .addComponent(textoNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textoIDUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonModificar)
-                    .addComponent(botonBorrar))
+                    .addComponent(botonBorrar)
+                    .addComponent(jButtonNuevaIncidencia1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -151,9 +204,71 @@ public class Admin extends javax.swing.JFrame {
         this.rellenarTablaIncidencias();
     }//GEN-LAST:event_formWindowActivated
 
-    private void textoNombreUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoNombreUsuarioMouseClicked
-       this.textoNombreUsuario.setText("");
-    }//GEN-LAST:event_textoNombreUsuarioMouseClicked
+    private void textoIDUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoIDUsuarioMouseClicked
+        this.textoIDUsuario.setText("");
+    }//GEN-LAST:event_textoIDUsuarioMouseClicked
+
+    private void botonBuscarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarUsuarioActionPerformed
+        try (TicketDAOImpl tdi = new TicketDAOImpl(u)) {
+            if (!textoIDUsuario.getText().equals("") || !textoIDUsuario.getText().isBlank()) {
+                ArrayList<Incidencia> al = tdi.ObtenerIncidenciasPorIdUsuario(Integer.parseInt(this.textoIDUsuario.getText()));
+                DefaultTableModel dtm = (DefaultTableModel) this.jTableIncidencias.getModel();
+                dtm.setNumRows(0);
+                for (Incidencia i : al) {
+                    Object[] array = {i.getId(), i.getIdPrioridad(), i.getIdUsuarioAfectado(), i.getIdEstado(), i.getIdUsuarioTecnico(),
+                        i.getTitulo(), i.getFechaAlta(), i.getFechaUltimaModificacion(), i.getFechaFinal(), i.getIdDispositivo(),
+                        i.getDescripcion(), i.getSolucion()};
+                    dtm.addRow(array);
+                }
+            } else {
+                rellenarTablaIncidencias();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_botonBuscarUsuarioActionPerformed
+
+    private void botonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarActionPerformed
+        NuevaIncidencia ni = new NuevaIncidencia(this.u);
+        this.dispose();
+        ni.setVisible(true);
+        ni.requestFocus();
+    }//GEN-LAST:event_botonModificarActionPerformed
+
+    private void botonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBorrarActionPerformed
+        int idIncidencia = -1;
+        try (TicketDAOImpl tdi = new TicketDAOImpl(this.u)) {
+            DefaultTableModel dtm = (DefaultTableModel) this.jTableIncidencias.getModel();
+            if (this.jTableIncidencias.getSelectedRow() != -1) {
+                idIncidencia = (Integer) dtm.getValueAt(this.jTableIncidencias.getSelectedRow(), 0);
+            }
+            if (JOptionPane.showConfirmDialog(null, "¿De verdad deseas cerrar la incidencia?\nEsta acción es irreversible.", "OJOCUIDAO",
+                    JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                // yes option
+                if (idIncidencia != -1) {
+                    tdi.cerrarIncidencia(idIncidencia);
+                    this.rellenarTablaIncidencias();
+                }
+            } else {
+                // no option
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_botonBorrarActionPerformed
+
+    private void jButtonNuevaIncidencia1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevaIncidencia1ActionPerformed
+        NuevaIncidencia ni = new NuevaIncidencia(this.u);
+        this.dispose();
+        ni.setVisible(true);
+        ni.requestFocus();
+    }//GEN-LAST:event_jButtonNuevaIncidencia1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -194,8 +309,9 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JButton botonBorrar;
     private javax.swing.JButton botonBuscarUsuario;
     private javax.swing.JButton botonModificar;
+    private javax.swing.JButton jButtonNuevaIncidencia1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableIncidencias;
-    private javax.swing.JTextField textoNombreUsuario;
+    private javax.swing.JTextField textoIDUsuario;
     // End of variables declaration//GEN-END:variables
 }

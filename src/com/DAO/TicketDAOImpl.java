@@ -41,7 +41,7 @@ public class TicketDAOImpl implements TicketDAO, AutoCloseable {
     @Override
     public void RegistrarIncidencia(Incidencia i) {
         String sql = "INSERT INTO INCIDENCIA (FECHA_INICIO, FECHA_PUBLICACION, ID_ESTADO, ID_USUARIO, ID_TIPOINCIDENCIA,"
-                + " ID_DISPOSITIVO, DESCRIPCION_INCIDENCIA, ID_PRIORIDAD) VALUES (?,?,?,?,?,?,?,?)";
+                + " ID_DISPOSITIVO, DESCRIPCION_INCIDENCIA, ID_PRIORIDAD, TITULO) VALUES (?,?,?,?,?,?,?,?,?)";
         try (PreparedStatement ps = this.con.prepareStatement(sql)) {
             ps.setDate(1, (Date) i.getFechaInicio());
             ps.setDate(2, Date.valueOf(LocalDate.now()));
@@ -51,6 +51,7 @@ public class TicketDAOImpl implements TicketDAO, AutoCloseable {
             ps.setInt(6, i.getIdDispositivo());
             ps.setString(7, i.getDescripcion());
             ps.setInt(8, i.getIdPrioridad());
+            ps.setString(9, i.getTitulo());
             ps.executeUpdate();
 
         } catch (Exception e) {
@@ -64,7 +65,8 @@ public class TicketDAOImpl implements TicketDAO, AutoCloseable {
 
     @Override
     public void cerrarIncidencia(int id) {
-        String sql = "UPDATE INCIDENCIA SET FECHA_FIN = NOW(), ID_ESTADO = 3 WHERE ID_INCIDENCIA = ?";
+        String sql = "UPDATE INCIDENCIA SET FECHA_FIN = NOW(), FECHA_ULTIMA_MODIFICACION = NOW(),"
+                + "FECHA_FIN = NOW(), ID_ESTADO = 3 WHERE ID_INCIDENCIA = ?";
         try (PreparedStatement ps = this.con.prepareStatement(sql)) {
             ps.setInt(1, id);
             ps.executeUpdate();
@@ -83,8 +85,8 @@ public class TicketDAOImpl implements TicketDAO, AutoCloseable {
             rs = ps.executeQuery();
             while (rs.next()) {
                 Incidencia i = new Incidencia(rs.getInt(1), rs.getString(2), rs.getDate(3), rs.getDate(4), rs.getDate(5),
-                        rs.getDate(6), rs.getInt(7), rs.getInt(8), rs.getInt(9), rs.getString(10),
-                        rs.getString(11), rs.getInt(12), rs.getInt(13), rs.getInt(14));
+                        rs.getDate(6), rs.getInt(7), rs.getInt(8), rs.getInt(9), rs.getInt(10),
+                        rs.getString(11), rs.getString(12), rs.getInt(13), rs.getInt(14));
                 al.add(i);
             }
             return al;
@@ -109,8 +111,8 @@ public class TicketDAOImpl implements TicketDAO, AutoCloseable {
             rs = ps.executeQuery();
             while (rs.next()) {
                 Incidencia i = new Incidencia(rs.getInt(1), rs.getString(2), rs.getDate(3), rs.getDate(4), rs.getDate(5),
-                        rs.getDate(6), rs.getInt(7), rs.getInt(8), rs.getInt(9), rs.getString(10),
-                        rs.getString(11), rs.getInt(12), rs.getInt(13), rs.getInt(14));
+                        rs.getDate(6), rs.getInt(7), rs.getInt(8), rs.getInt(9), rs.getInt(10),
+                        rs.getString(11), rs.getString(12), rs.getInt(13), rs.getInt(14));
                 al.add(i);
             }
             return al;

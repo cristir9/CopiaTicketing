@@ -23,12 +23,15 @@ public class NuevaIncidencia extends javax.swing.JFrame {
      */
     public NuevaIncidencia() {
         initComponents();
+        this.setTitle("NUEVA INCIDENCIA");
     }
 
     public NuevaIncidencia(Usuario u) {
         initComponents();
+        this.setTitle("NUEVA INCIDENCIA");
         this.u = u;
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        this.jTextFieldNombre.setText(u.getNombre() + " " + u.getApellidos());
     }
 
     /**
@@ -246,10 +249,10 @@ public class NuevaIncidencia extends javax.swing.JFrame {
         try {
             TicketDAOImpl tdi = new TicketDAOImpl(this.u);
             Incidencia i = new Incidencia();
-            i.setIdUsuarioAfectado(1);
+            i.setTitulo(this.jTextFieldTitulo.getText().toString());
+            i.setIdUsuarioAfectado(u.getId());
             i.setDescripcion(this.jTextAreaComentarios.getText());
             i.setFechaInicio(new java.sql.Date(this.jDateChooser.getDate().getTime()));
-            //Faltan los condicionales para las inserciones de los tipos de incidencia y del id de dispositivo
             if (this.DesplegablePrioridad.getSelectedItem().toString().equalsIgnoreCase("ALTA")) {
                 i.setIdPrioridad(1);
             } else if (this.DesplegablePrioridad.getSelectedItem().toString().equalsIgnoreCase("BAJA")) {
@@ -281,15 +284,12 @@ public class NuevaIncidencia extends javax.swing.JFrame {
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
-            User u = new User(this.u);
-            this.setVisible(false);
-            u.setVisible(true);
-            u.requestFocus();
+            this.dispose();
         }
     }//GEN-LAST:event_jButtonEnviarActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-    
+
     }//GEN-LAST:event_formWindowClosed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -297,29 +297,29 @@ public class NuevaIncidencia extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void formWindowDeactivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowDeactivated
-        this.u = new Usuario();
-        this.u.setTipoUsuario("Usuario");
-        if (this.u.getTipoUsuario().equalsIgnoreCase("USUARIO")) {
-            User u = new User(this.u);
-            u.setVisible(true);
-            u.requestFocus();
-        } else if (this.u.getTipoUsuario().equalsIgnoreCase("ADMINISTRADOR")) {
+        if (this.u.getTipoUsuario().equalsIgnoreCase("1")) {
             Admin a = new Admin(this.u);
+            this.dispose();
             a.setVisible(true);
             a.requestFocus();
-        } else if (this.u.getTipoUsuario().equalsIgnoreCase("TECNICO")) {
+        } else if (this.u.getTipoUsuario().equalsIgnoreCase("2")) {
             Tecnico t = new Tecnico(this.u);
+            this.dispose();
             t.setVisible(true);
             t.requestFocus();
-        } else if (this.u.getTipoUsuario().equalsIgnoreCase("GESTOR")) {
+        } else if (this.u.getTipoUsuario().equalsIgnoreCase("3")) {
             Gestor g = new Gestor(this.u);
+            this.dispose();
             g.setVisible(true);
             g.requestFocus();
+        } else if (this.u.getTipoUsuario().equalsIgnoreCase("9")) {
+            User u = new User(this.u);
+            this.dispose();
+            u.setVisible(true);
+            u.requestFocus();
         }
     }//GEN-LAST:event_formWindowDeactivated
 
-    
-    
     /**
      * @param args the command line arguments
      */
@@ -354,8 +354,7 @@ public class NuevaIncidencia extends javax.swing.JFrame {
                 new NuevaIncidencia().setVisible(true);
             }
         });
-        
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

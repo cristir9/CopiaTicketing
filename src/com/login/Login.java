@@ -1,13 +1,30 @@
 package com.login;
 
+import com.DAO.Usuario;
+import com.interfaces.Admin;
+import com.interfaces.Gestor;
+import com.interfaces.Tecnico;
+import com.interfaces.User;
 import java.awt.Color;
+import java.util.ArrayList;
+import javax.swing.JFrame;
 
 public class Login extends javax.swing.JFrame {
 
     int xMouse, yMouse;
+    private ArrayList<Usuario> al = new ArrayList<Usuario>();
 
     public Login() {
         initComponents();
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        Usuario u = new Usuario(1, "admin", "admin", "1");
+        al.add(u);
+        u = new Usuario(2, "user", "user", "9");
+        al.add(u);
+        u = new Usuario(3, "tecnico", "tecnico", "2");
+        al.add(u);
+        u = new Usuario(4, "gestor", "gestor", "3");
+        al.add(u);
     }
 
     @SuppressWarnings("unchecked")
@@ -265,6 +282,28 @@ public class Login extends javax.swing.JFrame {
     private void loginBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginBtnTxtMouseClicked
         if (userTxt.getText().equals("admin") && passTxt.getText().equals("admin")) {
             javax.swing.JOptionPane.showMessageDialog(this, "Intento de login con los datos:\nUsuario: " + userTxt.getText() + "\nContraseña: " + String.valueOf(passTxt.getPassword()), "LOGIN", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            Admin a = new Admin(al.get(0));
+            this.dispose();
+            a.setVisible(true);
+            a.requestFocus();
+        } else if (userTxt.getText().equals("gestor") && passTxt.getText().equals("gestor")) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Intento de login con los datos:\nUsuario: " + userTxt.getText() + "\nContraseña: " + String.valueOf(passTxt.getPassword()), "LOGIN", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            Gestor g = new Gestor(al.get(3));
+            this.dispose();
+            g.setVisible(true);
+            g.requestFocus();
+        } else if (userTxt.getText().equals("tecnico") && passTxt.getText().equals("tecnico")) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Intento de login con los datos:\nUsuario: " + userTxt.getText() + "\nContraseña: " + String.valueOf(passTxt.getPassword()), "LOGIN", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            Tecnico t = new Tecnico(al.get(2));
+            this.dispose();
+            t.setVisible(true);
+            t.requestFocus();
+        } else if (userTxt.getText().equals("user") && passTxt.getText().equals("user")) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Intento de login con los datos:\nUsuario: " + userTxt.getText() + "\nContraseña: " + String.valueOf(passTxt.getPassword()), "LOGIN", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            User u = new User(al.get(1));
+            this.dispose();
+            u.setVisible(true);
+            u.requestFocus();
         } else {
             javax.swing.JOptionPane.showMessageDialog(this, "PRUEBA OTRA COMBINACION.", "LOGIN", javax.swing.JOptionPane.INFORMATION_MESSAGE);
 
