@@ -4,7 +4,9 @@
  */
 package com.DAO;
 
+import java.awt.List;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  *
@@ -13,8 +15,13 @@ import java.util.ArrayList;
 public interface TicketDAO {
     
     public void RegistrarIncidencia(Incidencia i);
-    public void ModificarIncidencia();
-    public ArrayList<Incidencia> ObtenerIncidenciasPorIdUsuario(int id);
+    //public void ModificarIncidencia();
+    //public ArrayList<Incidencia> ObtenerIncidenciasPorIdUsuario(int id);
+    public ArrayList<Incidencia> filtroBusqueda(String searchParam);
     public void cerrarIncidencia(int id);
-    public ArrayList<Incidencia> ObtenerAllIncidencias();
+    //public ArrayList<Incidencia> ObtenerAllIncidencias();
+    public ArrayList<Usuario>ObtenerUsuariosConTipo();
+    public ArrayList<Incidencia> ObtenerIncidenciasPorIdUsuario(int id);
+    public ArrayList<Incidencia> ObtenerAllIncidenciasConTodo();
+    public Map<Integer,ArrayList<Object>> obtenerAtributos();
 }

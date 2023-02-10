@@ -1,13 +1,14 @@
 package com.login;
 
+import com.DAO.TicketDAOImpl;
 import com.DAO.Usuario;
 import com.interfaces.Admin;
-import com.interfaces.Gestor;
-import com.interfaces.Tecnico;
 import com.interfaces.User;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Optional;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
 
@@ -16,15 +17,7 @@ public class Login extends javax.swing.JFrame {
 
     public Login() {
         initComponents();
-        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        Usuario u = new Usuario(1, "admin", "admin", "1");
-        al.add(u);
-        u = new Usuario(2, "user", "user", "9");
-        al.add(u);
-        u = new Usuario(3, "tecnico", "tecnico", "2");
-        al.add(u);
-        u = new Usuario(4, "gestor", "gestor", "3");
-        al.add(u);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     @SuppressWarnings("unchecked")
@@ -54,6 +47,9 @@ public class Login extends javax.swing.JFrame {
         setUndecorated(true);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
@@ -168,6 +164,11 @@ public class Login extends javax.swing.JFrame {
         passTxt.setForeground(new java.awt.Color(204, 204, 204));
         passTxt.setText("********");
         passTxt.setBorder(null);
+        passTxt.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                passTxtFocusGained(evt);
+            }
+        });
         passTxt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 passTxtMousePressed(evt);
@@ -280,41 +281,65 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_passTxtMousePressed
 
     private void loginBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginBtnTxtMouseClicked
-        if (userTxt.getText().equals("admin") && passTxt.getText().equals("admin")) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Intento de login con los datos:\nUsuario: " + userTxt.getText() + "\nContraseña: " + String.valueOf(passTxt.getPassword()), "LOGIN", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-            Admin a = new Admin(al.get(0));
-            this.dispose();
-            a.setVisible(true);
-            a.requestFocus();
-        } else if (userTxt.getText().equals("gestor") && passTxt.getText().equals("gestor")) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Intento de login con los datos:\nUsuario: " + userTxt.getText() + "\nContraseña: " + String.valueOf(passTxt.getPassword()), "LOGIN", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-            Gestor g = new Gestor(al.get(3));
-            this.dispose();
-            g.setVisible(true);
-            g.requestFocus();
-        } else if (userTxt.getText().equals("tecnico") && passTxt.getText().equals("tecnico")) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Intento de login con los datos:\nUsuario: " + userTxt.getText() + "\nContraseña: " + String.valueOf(passTxt.getPassword()), "LOGIN", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-            Tecnico t = new Tecnico(al.get(2));
-            this.dispose();
-            t.setVisible(true);
-            t.requestFocus();
-        } else if (userTxt.getText().equals("user") && passTxt.getText().equals("user")) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Intento de login con los datos:\nUsuario: " + userTxt.getText() + "\nContraseña: " + String.valueOf(passTxt.getPassword()), "LOGIN", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-            User u = new User(al.get(1));
-            this.dispose();
-            u.setVisible(true);
-            u.requestFocus();
+        boolean valido;
+            
+        valido = al.stream()
+                .anyMatch(e  -> (e.getNickname().equals(userTxt.getText()))
+                && (e.getPassword().equals(passTxt.getText()))
+                );
+
+        if (valido) {
+       Optional o= al.stream().filter(e  -> (e.getNickname().equals(userTxt.getText()))
+                && (e.getPassword().equals(passTxt.getText()))).findFirst();
+               
+                 
+                 Usuario u = (Usuario) o.orElse(null);
+       
+                 if(u!=null){
+                     if(u.getNombreTipoUsuario().equalsIgnoreCase("administrador")){
+                      Admin a = new Admin(u);
+                    this.dispose();
+                    a.setVisible(true);
+                }else if(u.getNombreTipoUsuario().equalsIgnoreCase("gestor")){
+                    
+                }else if(u.getNombreTipoUsuario().equalsIgnoreCase("tecnico")){
+                    
+                }else if(u.getNombreTipoUsuario().equalsIgnoreCase("usuario")){
+                    
+                    User user = new User(u);
+                    this.dispose();
+                    user.setVisible(true);
+                    
+                    
+                }
+                 }
+                
+               
+            
         } else {
-            javax.swing.JOptionPane.showMessageDialog(this, "PRUEBA OTRA COMBINACION.", "LOGIN", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-
+            JOptionPane.showMessageDialog(rootPane, "Te has equivocado cerdo");
         }
-
 
     }//GEN-LAST:event_loginBtnTxtMouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
+        // TODO add your handling code here:       
     }//GEN-LAST:event_formWindowOpened
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+
+        try (TicketDAOImpl gestor = new TicketDAOImpl()) {
+            al = gestor.ObtenerUsuariosConTipo();
+        } catch (Exception e) {
+
+        }
+    }//GEN-LAST:event_formWindowActivated
+
+    private void passTxtFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passTxtFocusGained
+        // TODO add your handling code here:
+        passTxt.setText("");
+    }//GEN-LAST:event_passTxtFocusGained
 
     /**
      * @param args the command line arguments

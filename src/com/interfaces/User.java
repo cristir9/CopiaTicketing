@@ -29,13 +29,13 @@ public class User extends javax.swing.JFrame {
     public User() {
         initComponents();
         this.setTitle("USER");
-        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        Usuario u = new Usuario(9, "user", "user", "9");
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);   
         this.u = u;
     }
 
     public User(Usuario u) {
         initComponents();
+        //System.out.println(u);
         this.setTitle("USER");
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         this.u = u;
@@ -214,23 +214,11 @@ public class User extends javax.swing.JFrame {
 
     public void rellenarTablaIncidencias() {
         try (TicketDAOImpl tdi = new TicketDAOImpl(this.u)) {
-            String estado = "";
-            this.u.setId(1);
-            ArrayList<Incidencia> al = tdi.ObtenerIncidenciasPorIdUsuario(this.u.getId());
+            ArrayList<Incidencia> al = tdi.ObtenerIncidenciasPorIdUsuario(this.u.getId());           
             DefaultTableModel dtm = (DefaultTableModel) this.jTableIncidencias.getModel();
             dtm.setNumRows(0);
             for (Incidencia i : al) {
-                if (i.getIdEstado() == 1) {
-                    estado = "Abierta";
-                } else if (i.getIdEstado() == 2) {
-                    estado = "En trámite";
-                } else if (i.getIdEstado() == 3) {
-                    estado = "Cerrada";
-                } else if (i.getIdEstado() == 4) {
-                    estado = "resuelta";
-                }
-                Object[] array = {i.getId(), estado, i.getTitulo(), i.getFechaInicio(), i.getFechaFinal(), i.getFechaFinal(), i.getDescripcion()};
-                System.out.println(i);
+                Object[] array = {i.getId(), i.getNombreEstado(), i.getTitulo(), i.getFechaInicio(), i.getFechaUltimaModificacion(), i.getFechaFin(), i.getDescripcion()};
                 dtm.addRow(array);
             }
         } catch (SQLException sqle) {

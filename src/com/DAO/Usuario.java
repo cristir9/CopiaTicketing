@@ -14,15 +14,36 @@ public class Usuario implements Serializable{
 
     private int id;
     private String nombre;
-    private String Apellidos;
-    private String tipoUsuario;
+    private String apellidos;
+    private String nickname;
+    private String password;
+    private String email;
+    private boolean is_Activo;
+    private int idTipoUsuario;
+    private int idUsuario;
+    private String nombreTipoUsuario;
 
-    public Usuario(int id, String nombre, String Apellidos, String tipoUsuario) {
+    public Usuario(int id, String nombre, String apellidos, String nickname, String password, String email, boolean is_Activo, int idTipoUsuario, int idUsuario, String nombreTipoUsuario) {
         this.id = id;
         this.nombre = nombre;
-        this.Apellidos = Apellidos;
-        this.tipoUsuario = tipoUsuario;
+        this.apellidos = apellidos;
+        this.nickname = nickname;
+        this.password = password;
+        this.email = email;
+        this.is_Activo = is_Activo;
+        this.idTipoUsuario = idTipoUsuario;
+        this.idUsuario = idUsuario;
+        this.nombreTipoUsuario = nombreTipoUsuario;
     }
+
+  
+    
+    
+    
+    
+   
+
+  
 
     public Usuario() {
     }
@@ -43,24 +64,80 @@ public class Usuario implements Serializable{
         this.nombre = nombre;
     }
 
-    public String getApellidos() {
-        return Apellidos;
-    }
-
-    public void setApellidos(String Apellidos) {
-        this.Apellidos = Apellidos;
-    }
-
-    public String getTipoUsuario() {
-        return tipoUsuario;
-    }
-
-    public void setTipoUsuario(String tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
-    }
-
     @Override
     public String toString() {
-        return nombre + " " + Apellidos + " || " + tipoUsuario;
+        return "Usuario{" + "id=" + id + ", nombre=" + nombre + ", apellidos=" + apellidos + ", nickname=" + nickname + ", password=" + password + ", email=" + email + ", is_Activo=" + is_Activo + ", idTipoUsuario=" + idTipoUsuario + ", idUsuario=" + idUsuario + ", nombreTipoUsuario=" + nombreTipoUsuario + '}';
     }
+
+ 
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public boolean isIs_Activo() {
+        return is_Activo;
+    }
+
+    public void setIs_Activo(boolean is_Activo) {
+        this.is_Activo = is_Activo;
+    }
+
+    public int getIdTipoUsuario() {
+        return idTipoUsuario;
+    }
+
+    public void setIdTipoUsuario(int idTipoUsuario) {
+        this.idTipoUsuario = idTipoUsuario;
+    }
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public String getNombreTipoUsuario() {
+        return nombreTipoUsuario;
+    }
+
+    public void setNombreTipoUsuario(String nombreTipoUsuario) {
+        this.nombreTipoUsuario = nombreTipoUsuario;
+    }
+
+
+
+   
+
+ 
 }

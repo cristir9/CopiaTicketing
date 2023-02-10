@@ -26,16 +26,19 @@ public class Admin extends javax.swing.JFrame {
     /**
      * Creates new form Admin
      */
+
+    
     public Admin() {
-        initComponents();
+        initComponents();    
         this.setTitle("ADMINISTRADOR");
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        Usuario u = new Usuario(1, "admin", "admin", "1");
+       
         this.u = u;
     }
 
     public Admin(Usuario u) {
         initComponents();
+       
         this.setTitle("ADMINISTRADOR");
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         this.u = u;
@@ -43,12 +46,12 @@ public class Admin extends javax.swing.JFrame {
 
     public void rellenarTablaIncidencias() {
         try (TicketDAOImpl tdi = new TicketDAOImpl(this.u)) {
-            ArrayList<Incidencia> al = tdi.ObtenerAllIncidencias();
+            ArrayList<Incidencia> al = tdi.ObtenerAllIncidenciasConTodo();
             DefaultTableModel dtm = (DefaultTableModel) this.jTableIncidencias.getModel();
             dtm.setNumRows(0);
             for (Incidencia i : al) {
-                Object[] array = {i.getId(), i.getIdPrioridad(), i.getIdUsuarioAfectado(), i.getIdEstado(), i.getIdUsuarioTecnico(),
-                    i.getTitulo(), i.getFechaAlta(), i.getFechaUltimaModificacion(), i.getFechaFinal(), i.getIdDispositivo(),
+                Object[] array = {i.getId(), i.getNombrePrioridad(), i.getIdUsuario()+"-"+i.getNombreUsuario()+","+i.getApellido(), i.getNombreEstado(), i.getIdUsuarioTecnico(),
+                    i.getTitulo(), i.getFechaPublicacion(), i.getFechaUltimaModificacion(), i.getFechaFin(), i.getNombreDispositivo(),
                     i.getDescripcion(), i.getSolucion()};
                 System.out.println(i);
                 dtm.addRow(array);
@@ -109,8 +112,6 @@ public class Admin extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTableIncidencias);
         if (jTableIncidencias.getColumnModel().getColumnCount() > 0) {
             jTableIncidencias.getColumnModel().getColumn(0).setResizable(false);
-            jTableIncidencias.getColumnModel().getColumn(1).setResizable(false);
-            jTableIncidencias.getColumnModel().getColumn(2).setResizable(false);
             jTableIncidencias.getColumnModel().getColumn(3).setResizable(false);
             jTableIncidencias.getColumnModel().getColumn(4).setResizable(false);
             jTableIncidencias.getColumnModel().getColumn(5).setResizable(false);
@@ -161,35 +162,30 @@ public class Admin extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(textoIDUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botonBuscarUsuario)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 457, Short.MAX_VALUE)
-                        .addComponent(jButtonNuevaIncidencia1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botonBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addComponent(textoIDUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botonBuscarUsuario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 727, Short.MAX_VALUE)
+                .addComponent(jButtonNuevaIncidencia1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botonBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonBuscarUsuario)
                     .addComponent(textoIDUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonModificar)
                     .addComponent(botonBorrar)
                     .addComponent(jButtonNuevaIncidencia1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 563, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 28, Short.MAX_VALUE))
         );
 
         pack();
@@ -209,20 +205,19 @@ public class Admin extends javax.swing.JFrame {
     }//GEN-LAST:event_textoIDUsuarioMouseClicked
 
     private void botonBuscarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarUsuarioActionPerformed
+        
         try (TicketDAOImpl tdi = new TicketDAOImpl(u)) {
-            if (!textoIDUsuario.getText().equals("") || !textoIDUsuario.getText().isBlank()) {
-                ArrayList<Incidencia> al = tdi.ObtenerIncidenciasPorIdUsuario(Integer.parseInt(this.textoIDUsuario.getText()));
-                DefaultTableModel dtm = (DefaultTableModel) this.jTableIncidencias.getModel();
-                dtm.setNumRows(0);
-                for (Incidencia i : al) {
-                    Object[] array = {i.getId(), i.getIdPrioridad(), i.getIdUsuarioAfectado(), i.getIdEstado(), i.getIdUsuarioTecnico(),
-                        i.getTitulo(), i.getFechaAlta(), i.getFechaUltimaModificacion(), i.getFechaFinal(), i.getIdDispositivo(),
-                        i.getDescripcion(), i.getSolucion()};
-                    dtm.addRow(array);
-                }
-            } else {
-                rellenarTablaIncidencias();
+           ArrayList<Incidencia> lista = tdi.filtroBusqueda(this.textoIDUsuario.getText());
+              DefaultTableModel dtm = (DefaultTableModel) this.jTableIncidencias.getModel();
+           dtm.setNumRows(0);
+             for (Incidencia i : lista) {
+                 Object[] array = {i.getId(), i.getNombrePrioridad(), i.getIdUsuario()+"-"+i.getNombreUsuario()+","+i.getApellido(), i.getNombreEstado(), i.getIdUsuarioTecnico(),
+                    i.getTitulo(), i.getFechaPublicacion(), i.getFechaUltimaModificacion(), i.getFechaFin(), i.getNombreDispositivo(),
+                    i.getDescripcion(), i.getSolucion()};
+               
+                dtm.addRow(array);
             }
+              
         } catch (SQLException ex) {
             Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {

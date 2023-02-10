@@ -4,10 +4,18 @@
  */
 package com.interfaces;
 
+import com.DAO.Dispositivo;
 import com.DAO.Incidencia;
+import com.DAO.Prioridad;
 import com.DAO.TicketDAOImpl;
+import com.DAO.Tipo_Incidencia;
 import com.DAO.Usuario;
+import java.awt.List;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
@@ -17,6 +25,7 @@ import javax.swing.JFrame;
 public class NuevaIncidencia extends javax.swing.JFrame {
 
     private Usuario u;
+    private Map<Integer, ArrayList<Object>> listaAtributos;
 
     /**
      * Creates new form Incidencia
@@ -24,13 +33,14 @@ public class NuevaIncidencia extends javax.swing.JFrame {
     public NuevaIncidencia() {
         initComponents();
         this.setTitle("NUEVA INCIDENCIA");
+         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     public NuevaIncidencia(Usuario u) {
         initComponents();
         this.setTitle("NUEVA INCIDENCIA");
         this.u = u;
-        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.jTextFieldNombre.setText(u.getNombre() + " " + u.getApellidos());
     }
 
@@ -64,6 +74,9 @@ public class NuevaIncidencia extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
             }
@@ -72,6 +85,9 @@ public class NuevaIncidencia extends javax.swing.JFrame {
             }
             public void windowDeactivated(java.awt.event.WindowEvent evt) {
                 formWindowDeactivated(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
 
@@ -119,11 +135,11 @@ public class NuevaIncidencia extends javax.swing.JFrame {
         jLabelDispositivo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabelDispositivo.setText("Dispositivo:");
 
-        DesplegableTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "HARDWARE", "SOFTWARE", "RED", "PERIFERICOS" }));
-
-        DesplegablePrioridad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alta", "Media", "Baja"}));
-
-        DesplegableDispositivo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ordenador sobremesa", "Ordenador Portátil", "Smartphone", "Teclado", "Ratón" }));
+        DesplegableTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DesplegableTipoActionPerformed(evt);
+            }
+        });
 
         jDesktopPanel.setLayer(jButtonAyuda, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPanel.setLayer(jLabelTitulo, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -246,79 +262,80 @@ public class NuevaIncidencia extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAyudaActionPerformed
 
     private void jButtonEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnviarActionPerformed
-        try {
-            TicketDAOImpl tdi = new TicketDAOImpl(this.u);
+        try (TicketDAOImpl tdi = new TicketDAOImpl(this.u);) {
             Incidencia i = new Incidencia();
             i.setTitulo(this.jTextFieldTitulo.getText().toString());
-            i.setIdUsuarioAfectado(u.getId());
+            i.setIdUsuario(u.getId());
             i.setDescripcion(this.jTextAreaComentarios.getText());
             i.setFechaInicio(new java.sql.Date(this.jDateChooser.getDate().getTime()));
-            if (this.DesplegablePrioridad.getSelectedItem().toString().equalsIgnoreCase("ALTA")) {
-                i.setIdPrioridad(1);
-            } else if (this.DesplegablePrioridad.getSelectedItem().toString().equalsIgnoreCase("BAJA")) {
-                i.setIdPrioridad(2);
-            } else if (this.DesplegablePrioridad.getSelectedItem().toString().equalsIgnoreCase("MEDIA")) {
-                i.setIdPrioridad(3);
-            }
-            if (this.DesplegableDispositivo.getSelectedItem().toString().equalsIgnoreCase("ORDENADOR SOBREMESA")) {
-                i.setIdDispositivo(1);
-            } else if (this.DesplegableDispositivo.getSelectedItem().toString().equalsIgnoreCase("ORDENADOR PORTÁTIL")) {
-                i.setIdDispositivo(2);
-            } else if (this.DesplegableDispositivo.getSelectedItem().toString().equalsIgnoreCase("SMARTPHONE")) {
-                i.setIdDispositivo(3);
-            } else if (this.DesplegableDispositivo.getSelectedItem().toString().equalsIgnoreCase("TECLADO")) {
-                i.setIdDispositivo(4);
-            } else if (this.DesplegableDispositivo.getSelectedItem().toString().equalsIgnoreCase("RATÓN")) {
-                i.setIdDispositivo(5);
-            }
-            if (this.DesplegableTipo.getSelectedItem().toString().equalsIgnoreCase("HARDWARE")) {
-                i.setIdTipoIncidencia(1);
-            } else if (this.DesplegableTipo.getSelectedItem().toString().equalsIgnoreCase("SOFTWARE")) {
-                i.setIdTipoIncidencia(2);
-            } else if (this.DesplegableTipo.getSelectedItem().toString().equalsIgnoreCase("RED")) {
-                i.setIdTipoIncidencia(3);
-            } else if (this.DesplegableTipo.getSelectedItem().toString().equalsIgnoreCase("PERIFERICOS")) {
-                i.setIdTipoIncidencia(4);
-            }
+            i.setIdTipoIncidencia(Integer.parseInt(this.DesplegableTipo.getSelectedItem().toString().substring(0, 1)));
+            i.setIdPrioridad(Integer.parseInt(this.DesplegablePrioridad.getSelectedItem().toString().substring(0, 1)));
+            i.setIdDispositivo(Integer.parseInt(this.DesplegablePrioridad.getSelectedItem().toString().substring(0, 1)));
             tdi.RegistrarIncidencia(i);
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            this.dispose();
+        } catch (Exception ex) {
+            Logger.getLogger(NuevaIncidencia.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonEnviarActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-
+        
+      
+       
     }//GEN-LAST:event_formWindowClosed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-
+          if (u.getNombreTipoUsuario().equalsIgnoreCase("Usuario")) {
+            User user = new User(u);  
+            user.setVisible(true);
+        } else if (u.getNombreTipoUsuario().equalsIgnoreCase("Administrador")) {
+            Admin a = new Admin(u);
+            a.setVisible(true);
+        } else if (u.getNombreTipoUsuario().equalsIgnoreCase("Gestor")) {
+            Gestor g = new Gestor(u);
+            g.setVisible(true);
+        } else if (u.getNombreTipoUsuario().equalsIgnoreCase("tecnico")) {
+            Tecnico g = new Tecnico(u);
+            g.setVisible(true);
+        }
     }//GEN-LAST:event_formWindowClosing
 
     private void formWindowDeactivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowDeactivated
-        if (this.u.getTipoUsuario().equalsIgnoreCase("1")) {
-            Admin a = new Admin(this.u);
-            this.dispose();
-            a.setVisible(true);
-            a.requestFocus();
-        } else if (this.u.getTipoUsuario().equalsIgnoreCase("2")) {
-            Tecnico t = new Tecnico(this.u);
-            this.dispose();
-            t.setVisible(true);
-            t.requestFocus();
-        } else if (this.u.getTipoUsuario().equalsIgnoreCase("3")) {
-            Gestor g = new Gestor(this.u);
-            this.dispose();
-            g.setVisible(true);
-            g.requestFocus();
-        } else if (this.u.getTipoUsuario().equalsIgnoreCase("9")) {
-            User u = new User(this.u);
-            this.dispose();
-            u.setVisible(true);
-            u.requestFocus();
-        }
+
     }//GEN-LAST:event_formWindowDeactivated
+
+    private void DesplegableTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DesplegableTipoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DesplegableTipoActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        try (TicketDAOImpl gestor = new TicketDAOImpl()) {
+            this.listaAtributos = gestor.obtenerAtributos();
+            for (Object e : listaAtributos.get(0)) {
+                Prioridad p = (Prioridad) e;
+                this.DesplegablePrioridad.addItem(p.getId() + " " + p.getNombre());
+            }
+            for (Object e : listaAtributos.get(1)) {
+                Dispositivo d = (Dispositivo) e;
+                this.DesplegableDispositivo.addItem(d.getId() + " " + d.getNombre());
+            }
+            for (Object e : listaAtributos.get(2)) {
+                Tipo_Incidencia t = (Tipo_Incidencia) e;
+
+                this.DesplegableTipo.addItem(t.getId() + " " + t.getNombre());
+            }
+        } catch (Exception e) {
+        }
+
+    }//GEN-LAST:event_formWindowActivated
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+
+
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -377,4 +394,5 @@ public class NuevaIncidencia extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldNombre;
     private javax.swing.JTextField jTextFieldTitulo;
     // End of variables declaration//GEN-END:variables
+
 }
