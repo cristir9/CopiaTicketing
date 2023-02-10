@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -272,11 +273,29 @@ public class NuevaIncidencia extends javax.swing.JFrame {
             i.setIdPrioridad(Integer.parseInt(this.DesplegablePrioridad.getSelectedItem().toString().substring(0, 1)));
             i.setIdDispositivo(Integer.parseInt(this.DesplegablePrioridad.getSelectedItem().toString().substring(0, 1)));
             tdi.RegistrarIncidencia(i);
+            
+            
         } catch (SQLException ex) {
             ex.printStackTrace();
         } catch (Exception ex) {
             Logger.getLogger(NuevaIncidencia.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+              if (this.u.getNombreTipoUsuario().equalsIgnoreCase("Usuario")) {
+            User user = new User(u);  
+            user.setVisible(true);
+        } else if (this.u.getNombreTipoUsuario().equalsIgnoreCase("Administrador")) {
+            Admin a = new Admin(u);
+            a.setVisible(true);
+        } else if (this.u.getNombreTipoUsuario().equalsIgnoreCase("Gestor")) {
+            Gestor g = new Gestor(u);
+            g.setVisible(true);
+        } else if (this.u.getNombreTipoUsuario().equalsIgnoreCase("tecnico")) {
+            Tecnico g = new Tecnico(u);
+            g.setVisible(true);
         }
+              this.dispose();
+        }
+       
     }//GEN-LAST:event_jButtonEnviarActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
@@ -286,19 +305,7 @@ public class NuevaIncidencia extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-          if (u.getNombreTipoUsuario().equalsIgnoreCase("Usuario")) {
-            User user = new User(u);  
-            user.setVisible(true);
-        } else if (u.getNombreTipoUsuario().equalsIgnoreCase("Administrador")) {
-            Admin a = new Admin(u);
-            a.setVisible(true);
-        } else if (u.getNombreTipoUsuario().equalsIgnoreCase("Gestor")) {
-            Gestor g = new Gestor(u);
-            g.setVisible(true);
-        } else if (u.getNombreTipoUsuario().equalsIgnoreCase("tecnico")) {
-            Tecnico g = new Tecnico(u);
-            g.setVisible(true);
-        }
+        
     }//GEN-LAST:event_formWindowClosing
 
     private void formWindowDeactivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowDeactivated
